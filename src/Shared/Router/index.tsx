@@ -1,18 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom"
 import routes from "./routes"
+import Home from "../Components/Home"
 
 export default function Router() {
 	return (
 		<Routes>
-			<Route
-				path={routes.Home.path}
-				element={
-					// <Home />
-					<>home</>
-				}
-			/>
-
-			<Route path={routes.Test.path} element={<>test</>} />
+			<Route path={routes.Home.path} element={<Home />} />
 
 			<Route path="/404" element={<>404 page</>} />
 
