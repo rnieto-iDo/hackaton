@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom"
-import Test from "../../../test"
 import routes from "./routes"
 
 export default function Router() {
