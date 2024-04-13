@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from "axios";
 
 export enum PATH_LIST {
   AGENCIES = "/agencies",
+  PROFILES = "/profiles",
 }
 
 export const createAxiosInstance = (

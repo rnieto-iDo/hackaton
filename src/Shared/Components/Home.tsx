@@ -26,9 +26,9 @@ export default function Home() {
       home
       <p>displaying tags from BE</p>
       <ul>
-        {/* {tags.map((tag, index) => (
-					<li key={index}>{tag.name}</li>
-				))} */}
+        {tags.map((tag, index) => (
+          <li key={index}>{tag.name}</li>
+        ))}
       </ul>
     </div>
   );
