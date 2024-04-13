@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { fetchAllAgencies } from "../Slices/agenciesSlice";
 import { useAppDispatch, useAppSelector } from "../../../Shared/App/hook";
+
+import { PageLayout } from "../../../Shared/Containers/pageLayout";
 import { Card } from "../Components/Card";
 
 export const Agencies = () => {
@@ -12,8 +14,7 @@ export const Agencies = () => {
     }, []);
 
     return (
-        <section className="p-10">
-            <h1 className="font-onest text-4xl font-semibold capitalize py-5">Agencies</h1>
+        <PageLayout pageName={"Agencies"}>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-[32px]">
                 {agencies.map((agency) => (
                     <Card
@@ -22,6 +23,6 @@ export const Agencies = () => {
                     />
                 ))}
             </div>
-        </section>
+        </PageLayout>
     )
 }
