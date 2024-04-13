@@ -11,6 +11,10 @@ const routes = {
     path: "/agencies",
     name: "Agencies",
   },
+  Profile: {
+    path: "/profile",
+    name: "profile",
+  },
 };
 
 export default routes;
