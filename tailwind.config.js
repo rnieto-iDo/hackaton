@@ -6,11 +6,15 @@ export default {
   ],
   theme: {
     extend: {
-        fontFamily: {
-            onest: ['Onest', 'sans-serif'],
-        },
+      fontFamily: {
+        onest: ['Onest', 'sans-serif'],
+      },
     },
-  },
-  plugins: [],
+    colors: {
+      offwhite: '#f9f9f9',
+
+    },
+    plugins: [],
+  }
 }
 
