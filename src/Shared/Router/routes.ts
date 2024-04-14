@@ -15,6 +15,14 @@ const routes = {
     path: "/profile/:id",
     name: "profile",
   },
+  Login: {
+    path: "/login",
+    name: "Login",
+  },
+  Register: {
+    path: "/Register",
+    name: "Register",
+  },
 };
 
 export default routes;
