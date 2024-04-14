@@ -11,3 +11,6 @@ bun.lockb
 
 # Ignore .env files
 .env
+
+
+dist/

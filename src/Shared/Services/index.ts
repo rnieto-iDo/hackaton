@@ -1,25 +1,26 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios"
 
 export enum PATH_LIST {
-  AGENCIES = "/agencies",
-  PROFILES = "/profiles",
+	AGENCIES = "/agencies",
+	PROFILES = "/profiles",
 }
 
 export const createAxiosInstance = (
-  // userData: IUserData,
-  PATH?: string
+	// userData: IUserData,
+	PATH?: string
 ): AxiosInstance => {
-  const baseURL = `${import.meta.env.VITE_API_BASE_URL as string}${PATH}`;
+	const baseURL = `${import.meta.env.VITE_API_BASE_URL as string}${PATH}`
 
-  const headers = {
-    // Authorization: `Bearer ${userData.jwtToken}`,
-    "Content-Type": "application/json",
-  };
+	const token = sessionStorage.getItem("accessToken")
+	const headers = {
+		Authorization: `Bearer ${token}`,
+		"Content-Type": "application/json",
+	}
 
-  const clientAxios = axios.create({
-    baseURL,
-    headers,
-  });
+	const clientAxios = axios.create({
+		baseURL,
+		headers,
+	})
 
-  return clientAxios;
-};
+	return clientAxios
+}
