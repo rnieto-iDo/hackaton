@@ -12,7 +12,7 @@ const routes = {
     name: "Agencies",
   },
   Profile: {
-    path: "/profile",
+    path: "/profile/:id",
     name: "profile",
   },
 };
