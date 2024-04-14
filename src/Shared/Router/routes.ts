@@ -23,6 +23,10 @@ const routes = {
     path: "/Register",
     name: "Register",
   },
+  DestinationsByAgency: {
+    path: "agencies/:id/destinations",
+    name: "DestinationsByAgency",
+  },
 };
 
 export default routes;

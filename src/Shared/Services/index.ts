@@ -10,14 +10,14 @@ export interface IUserData {
 }
 
 export const createAxiosInstance = (
-  userData: IUserData,
+  // userData: IUserData,
   PATH?: string
 ): AxiosInstance => {
   const baseURL = `${import.meta.env.VITE_API_BASE_URL as string}${PATH}`;
-  console.log("baseurl", baseURL);
 
+  const token = sessionStorage.getItem("accessToken");
   const headers = {
-    Authorization: `Bearer ${userData.jwtToken}`,
+    Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   };
 

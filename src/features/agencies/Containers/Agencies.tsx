@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { fetchAllAgencies } from "../Slices/agenciesSlice";
 import { useAppDispatch, useAppSelector } from "../../../Shared/App/hook";
+
+import { PageLayout } from "../../../Shared/Containers/pageLayout";
 import { Card } from "../Components/Card";
+import { Link } from "react-router-dom";
 
 export const Agencies = () => {
     const dispatch = useAppDispatch();
@@ -12,16 +15,20 @@ export const Agencies = () => {
     }, []);
 
     return (
-        <section className="p-10">
-            <h1 className="font-onest text-4xl font-semibold capitalize py-5">Agencies</h1>
+        <PageLayout pageName={"Agencies"}>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-[32px]">
                 {agencies.map((agency) => (
-                    <Card
+                    <Link
                         key={agency.id}
-                        {...agency}
-                    />
+                        to={`/agencies/${agency.id}/destinations`}
+                    >
+                        <Card
+                            key={agency.id}
+                            {...agency}
+                        />
+                    </Link>
                 ))}
             </div>
-        </section>
+        </PageLayout>
     )
 }

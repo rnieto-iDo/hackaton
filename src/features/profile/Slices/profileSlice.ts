@@ -1,8 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { Profile, fetchProfiles } from "../Services";
+import { fetchProfiles } from "../Services";
 import { ProfileSlice, Profiles } from "../Utils/profileInterface";
-import { IUserData } from "../../../Shared/Services";
 
 const handleAsyncThunkError = (error: Error) => {
   throw error;
@@ -10,9 +9,9 @@ const handleAsyncThunkError = (error: Error) => {
 
 export const fetchAllProfile = createAsyncThunk(
   "profiles/getAll",
-  async (data: Profile) => {
+  async (id: string) => {
     try {
-      const response = await fetchProfiles(data);
+      const response = await fetchProfiles(id);
       return response.data;
     } catch (error) {
       return handleAsyncThunkError(error as Error);
