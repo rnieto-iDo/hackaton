@@ -1,12 +1,19 @@
 import { AxiosResponse } from "axios";
-import { PATH_LIST, createAxiosInstance } from "../../../Shared/Services";
+import {
+  IUserData,
+  PATH_LIST,
+  createAxiosInstance,
+} from "../../../Shared/Services";
 
-export const fetchProfiles = async (): Promise<AxiosResponse> => {
-  const axiosInstance = createAxiosInstance(
-    // userData,
-    `${PATH_LIST.PROFILES}`
-  );
+export interface Profile {
+  id: string;
+  userData: IUserData;
+}
 
-  const response = await axiosInstance.get("/");
+export const fetchProfiles = async (data: Profile): Promise<AxiosResponse> => {
+  const { id, userData } = data;
+  const axiosInstance = createAxiosInstance(userData, `${PATH_LIST.PROFILES}`);
+
+  const response = await axiosInstance.get(`/${id}`);
   return response;
 };

@@ -1,20 +1,24 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { fetchProfiles } from "../Services";
+import { Profile, fetchProfiles } from "../Services";
 import { ProfileSlice, Profiles } from "../Utils/profileInterface";
+import { IUserData } from "../../../Shared/Services";
 
 const handleAsyncThunkError = (error: Error) => {
   throw error;
 };
 
-export const fetchAllProfile = createAsyncThunk("profiles/getAll", async () => {
-  try {
-    const response = await fetchProfiles();
-    return response.data;
-  } catch (error) {
-    return handleAsyncThunkError(error as Error);
+export const fetchAllProfile = createAsyncThunk(
+  "profiles/getAll",
+  async (data: Profile) => {
+    try {
+      const response = await fetchProfiles(data);
+      return response.data;
+    } catch (error) {
+      return handleAsyncThunkError(error as Error);
+    }
   }
-});
+);
 
 const initialState: ProfileSlice = {
   profiles: [],
