@@ -20,7 +20,7 @@ type FieldType = {
 	role: "user" | "agency"
 }
 
-export default function ARegister() {
+export default function AgencyRegister() {
 	const navigate = useNavigate()
 	const [message, setMessage] = useState<string>("")
 

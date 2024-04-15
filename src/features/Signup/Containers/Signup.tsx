@@ -1,7 +1,7 @@
 import { useState } from "react"
 import LoginForm from "../Components/LoginForm"
 import RegisterFormUser from "../Components/RegisterFormUser"
-import ARegister from "./ARegister"
+import AgencyRegister from "./AgencyRegister"
 
 export default function Signup() {
 	const [isLogin, setIsLogin] = useState(true)
@@ -10,7 +10,7 @@ export default function Signup() {
 	return (
 		<div className="w-full h-screen flex flex-col justify-center items-center bg-offwhite overflow-hidden">
 			{isShown ? (
-				<ARegister />
+				<AgencyRegister />
 			) : (
 				<div className="w-3/4 bg-themebg py-8 px-4">
 					<span>logo</span>
