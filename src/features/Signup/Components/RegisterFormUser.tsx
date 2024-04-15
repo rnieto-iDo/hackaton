@@ -1,5 +1,5 @@
 import { Button, Form, FormProps, Input, Select } from "antd"
-import { register } from "../Services/login"
+import { registerUser } from "../Services/login"
 import { setUser } from "../Slices/UserSlice"
 import { useState } from "react"
 import { Option } from "antd/es/mentions"
@@ -14,18 +14,25 @@ type FieldType = {
 	role: "user" | "agency"
 }
 
-export default function RegisterForm() {
+type RegisterFormUserProps = {
+	setShowCallback: (value: boolean) => void
+}
+export default function RegisterFormUser({
+	setShowCallback,
+}: RegisterFormUserProps) {
 	const navigate = useNavigate()
 	const [message, setMessage] = useState<string>("")
 
 	const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
-		const response = (await register(values)) as any
-		console.log(response, "response")
-
+		const response = (await registerUser(values)) as any
 		if (response.status === 200) {
 			sessionStorage.setItem("accessToken", response.data.token!)
 			setUser(response.data)
-			navigate("/")
+			if (values.role === "agency") {
+				setShowCallback(true)
+			} else {
+				navigate("/")
+			}
 		} else if (response.response.status === 422) {
 			setMessage(
 				"Email already exists, please try again with a different email"
@@ -120,6 +127,17 @@ export default function RegisterForm() {
 				</Form.Item>
 
 				<Form.Item<FieldType>
+					name="role"
+					label="User"
+					rules={[{ required: true, message: "Please select a role" }]}
+				>
+					<Select placeholder="select your Role">
+						<Option value="user">Traveler</Option>
+						<Option value="agency">Agency</Option>
+					</Select>
+				</Form.Item>
+
+				<Form.Item<FieldType>
 					name="gender"
 					label="Gender"
 					rules={[{ required: true, message: "Please select gender!" }]}
@@ -131,22 +149,13 @@ export default function RegisterForm() {
 					</Select>
 				</Form.Item>
 
-				<Form.Item<FieldType>
-					name="role"
-					label="User"
-					rules={[{ required: true, message: "Please select a role" }]}
-				>
-					<Select placeholder="select your Role">
-						<Option value="user">Traveler</Option>
-						<Option value="agency">Agency</Option>
-					</Select>
-				</Form.Item>
-
-				<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-					<Button type="primary" htmlType="submit">
-						Register
-					</Button>
-				</Form.Item>
+				<div className="flex justify-center items-center">
+					<Form.Item>
+						<Button type="primary" htmlType="submit">
+							Register
+						</Button>
+					</Form.Item>
+				</div>
 			</Form>
 		</>
 	)
