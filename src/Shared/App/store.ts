@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit"
 
 import { AgenciesReducer } from "../../features/agencies/Slices/agenciesSlice"
-import UserSlice from "../../features/Login/Slices/UserSlice"
+import UserSlice from "../../features/Signup/Slices/UserSlice"
 
 export const store = configureStore({
 	reducer: {

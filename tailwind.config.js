@@ -1,3 +1,5 @@
+import { text } from 'stream/consumers';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -11,7 +13,11 @@ export default {
       },
     },
     colors: {
-      offwhite: '#f9f9f9',
+      primary: "#ED264E",
+      secondary: "#F9DC5C",
+      offwhite: "#F4FFFD",
+      text: "#011936",
+      themebg: "#465362",
 
     },
     plugins: [],

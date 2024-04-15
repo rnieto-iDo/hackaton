@@ -15,6 +15,10 @@ const routes = {
     path: "/profile/:id",
     name: "profile",
   },
+  RoundTrip: {
+    path: "/roundTrip",
+    name: "roundTrip",
+  },
   Login: {
     path: "/login",
     name: "Login",
