@@ -1,13 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
+
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9IZmZAdQmrdduQpT2UlWa5mPs9Skr-yk&libraries=places&callback=initMap"></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Alternatively, you can target your input element by ID
+      // Replace querySelector('input[name="search_input"]') with getElementById('search_input')
+      // and insert id="search_input" in your form's input field
+      var searchInput = document.querySelector('input[name="search_input"]');
+      document.addEventListener("DOMContentLoaded", function () {
+        var autocomplete = new google.maps.places.Autocomplete(searchInput, {
+          types: ["geocode"],
+          componentRestrictions: { country: "us" },
+        });
+        autocomplete.addListener("place_changed", function () {
+          var near_place = autocomplete.getPlace();
+        });
+      });
+    </script>
   </body>
 </html>

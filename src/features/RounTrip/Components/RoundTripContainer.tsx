@@ -31,6 +31,11 @@ const RoundTripContainer = () => {
   return (
     <div>
       <RoundTripHeader />
+      <input
+        className="w-full h-4 border-solid border-[1px] border-[#0000]"
+        id="search_input"
+        name="search_input"
+        type="text"></input>
 
       <Form
         {...layout}
