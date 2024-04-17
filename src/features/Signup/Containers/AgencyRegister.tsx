@@ -1,9 +1,8 @@
-import { Button, Form, FormProps, Input, Select } from "antd"
+import { Button, Form, FormProps, Input } from "antd"
 import { useState } from "react"
-import { Option } from "antd/es/mentions"
-
 import { useNavigate } from "react-router-dom"
 import { registerAgency } from "../Services/login"
+import TextArea from "antd/es/input/TextArea"
 
 type FieldType = {
 	name: string
@@ -15,30 +14,56 @@ type FieldType = {
 	phone_number: string
 	address: string
 	email: string
-	password: string
-	password_confirmation: string
-	role: "user" | "agency"
+	bank_account: string
 }
 
 export default function AgencyRegister() {
 	const navigate = useNavigate()
-	const [message, setMessage] = useState<string>("")
+	const [coverState, setCover] = useState<File>()
+	const [logoState, setLogo] = useState<File>()
+
+	const handleCoverChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (!event.target.files) return
+		const selectedFile = event.target.files[0]
+		if (selectedFile) {
+			setCover(selectedFile)
+		}
+	}
+	const handleLogoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (!event.target.files) return
+		const selectedFile = event.target.files[0]
+		if (selectedFile) {
+			console.log(selectedFile)
+
+			setLogo(selectedFile)
+		}
+	}
+
+	const [meesageState, setMessageState] = useState<string>("")
 
 	const onFinish: FormProps<FieldType>["onFinish"] = async (
 		values: FieldType
 	) => {
-		const response = (await registerAgency(values)) as any
-		console.log(response, "response")
+		const formData = new FormData()
 
-		if (response.status === 200) {
-			sessionStorage.setItem("accessToken", response.data.token!)
+		Object.entries(values).forEach(([key, value]) => {
+			formData.append(key, value)
+		})
+
+		if (coverState) {
+			formData.append("cover", coverState)
+		}
+		if (logoState) {
+			formData.append("logo", logoState)
+		}
+		const response = (await registerAgency(formData)) as any
+
+		if (response.status === 201) {
+			console.log("registered")
+
 			navigate("/")
-		} else if (response.response && response.response.status === 422) {
-			setMessage(
-				"Email already exists, please try again with a different email"
-			)
 		} else {
-			setMessage("Something went wrong, please try again later")
+			setMessageState("Something went wrong, please try again later")
 		}
 	}
 
@@ -49,7 +74,7 @@ export default function AgencyRegister() {
 	}
 
 	return (
-		<>
+		<div className="flex flex-col gap-24 overflow-y-scroll bg-themebg">
 			<span>logo</span>
 			<Form
 				name="signUpForm"
@@ -65,8 +90,12 @@ export default function AgencyRegister() {
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 				autoComplete="on"
+				encType="multipart/form-data"
 			>
-				<p className="text-primary font-semibold">{message}</p>
+				<h1 className="text-text font-semibold text-2xl my-10">
+					Create Your Agency
+				</h1>
+				<p className="text-primary font-semibold">{meesageState}</p>
 
 				<Form.Item<FieldType>
 					label="Agency Name"
@@ -94,31 +123,119 @@ export default function AgencyRegister() {
 				>
 					<Input />
 				</Form.Item>
-				{/* <Form.Item<FieldType> label="Cover" name="cover">
-					<Dragger {...props}>
-						<p className="ant-upload-drag-icon">
-							<InboxOutlined />
-						</p>
-						<p className="ant-upload-text">
-							Click or drag file to this area to upload
-						</p>
-						<p className="ant-upload-hint">
-							Support for a single or bulk upload. Strictly prohibited from
-							uploading company data or other banned files.
-						</p>
-					</Dragger>
-				</Form.Item> */}
 
 				<Form.Item<FieldType>
-					name="role"
-					label="User"
-					rules={[{ required: true, message: "Please select a role" }]}
+					label="Agency Cover Photo"
+					name="cover"
+					rules={[
+						{
+							required: true,
+							message: "Please enter a cover photo",
+							type: "string",
+						},
+					]}
 				>
-					<Select placeholder="select your Role">
-						<Option value="user">Traveler</Option>
-						<Option value="agency">Agency</Option>
-					</Select>
+					<input type="file" onChange={handleCoverChange} />
 				</Form.Item>
+
+				<Form.Item<FieldType>
+					label="Agency Bio"
+					name="bio"
+					rules={[
+						{
+							required: true,
+							message: "Please input description!",
+							type: "string",
+						},
+					]}
+				>
+					<TextArea />
+				</Form.Item>
+
+				<Form.Item<FieldType>
+					label="Agency Logo"
+					name="logo"
+					rules={[
+						{
+							required: true,
+							message: "Please enter a logo",
+							type: "string",
+						},
+					]}
+				>
+					<input type="file" onChange={handleLogoChange} />
+				</Form.Item>
+
+				<Form.Item<FieldType>
+					label="Personal ID"
+					name="cedula"
+					rules={[
+						{
+							required: true,
+							message: "Please input your personal ID!",
+							type: "string",
+						},
+					]}
+				>
+					<Input />
+				</Form.Item>
+
+				<Form.Item<FieldType>
+					label="Phone Number"
+					name="phone_number"
+					rules={[
+						{
+							required: true,
+							message: "Please input your phone number!",
+							type: "string",
+						},
+					]}
+				>
+					<Input />
+				</Form.Item>
+
+				<Form.Item<FieldType>
+					label="Address"
+					name="address"
+					rules={[
+						{
+							required: true,
+							message: "Please input your address!",
+							type: "string",
+						},
+					]}
+				>
+					<Input />
+				</Form.Item>
+
+				<Form.Item<FieldType>
+					label="Email"
+					name="email"
+					rules={[
+						{
+							required: true,
+							message: "Please input your email!",
+							type: "email",
+						},
+					]}
+				>
+					<Input />
+				</Form.Item>
+
+				<Form.Item<FieldType>
+					label="Bank Account"
+					name="bank_account"
+					rules={[
+						{
+							required: true,
+							message: "Please input enter a bank account!",
+							type: "string",
+						},
+					]}
+				>
+					<Input />
+				</Form.Item>
+
 				<div className="flex justify-center items-center">
 					<Form.Item>
 						<Button type="primary" htmlType="submit">
@@ -127,6 +244,6 @@ export default function AgencyRegister() {
 					</Form.Item>
 				</div>
 			</Form>
-		</>
+		</div>
 	)
 }
