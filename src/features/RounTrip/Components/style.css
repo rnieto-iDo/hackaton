@@ -1,0 +1,3 @@
+.search-google-maps {
+  @apply border-[1px] border-solid border-[#d9d9d9] py-[4px] px-[11px] rounded-[4px] w-full;
+}

@@ -1,4 +1,5 @@
 import { Location } from "../../../assets/RoundTrip";
+import { useEffect } from "react";
 
 const RoundTripHeader = () => {
   return (
@@ -10,6 +11,7 @@ const RoundTripHeader = () => {
       <button className="border-solid border-[1px] rounded-[4px] cursor-pointer text-[12px] px-[10px] py-[4px] border-[#999999] flex items-center">
         <span className="mr-[4px]">x</span>Remover
       </button>
+      {/* <input type="text" name="search_input" placeholder="Search Places" /> */}
     </div>
   );
 };

@@ -1,20 +1,16 @@
-import { Button, Form, FormProps, Input, Select, Upload } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Button, Form, FormProps, Input, Select } from "antd";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Option } from "antd/es/mentions";
-// import { registerAgency } from "../Services/login"
+
+import { useNavigate } from "react-router-dom";
+import { registerAgency } from "../Services/login";
 
 type FieldType = {
   name: string;
-  // legal name
   name_juridical: string;
-  // coverImg
-  cover: File | HTMLImageElement;
-  // description
+  cover: File;
   bio: string;
-  logo: File | HTMLImageElement;
-  // personalID
+  logo: File;
   cedula: string;
   phone_number: string;
   address: string;
@@ -28,19 +24,21 @@ export default function AgencyRegister() {
   const navigate = useNavigate();
   const [message, setMessage] = useState<string>("");
 
-  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+  const onFinish: FormProps<FieldType>["onFinish"] = async (
+    values: FieldType
+  ) => {
     const response = (await registerAgency(values)) as any;
     console.log(response, "response");
 
     if (response.status === 200) {
       sessionStorage.setItem("accessToken", response.data.token!);
       navigate("/");
-    } else if (response.response.status === 422) {
+    } else if (response.response && response.response.status === 422) {
       setMessage(
         "Email already exists, please try again with a different email"
       );
     } else {
-      setMessage("something went wrong, please try again later");
+      setMessage("Something went wrong, please try again later");
     }
   };
 
