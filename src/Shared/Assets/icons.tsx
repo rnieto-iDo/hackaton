@@ -1,13 +1,45 @@
 const StarIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width={20}
-        height={20}
-        className="icon"
-        viewBox="0 0 1024 1024"
+        aria-hidden="true"
+        style={{
+            display: "block",
+            height: 12,
+            width: 12,
+            fill: "currentcolor",
+        }}
+        viewBox="0 0 32 32"
     >
-        <path d="m908.1 353.1-253.9-36.9L540.7 86.1c-3.1-6.3-8.2-11.4-14.5-14.5-15.8-7.8-35-1.3-42.9 14.5L369.8 316.2l-253.9 36.9c-7 1-13.4 4.3-18.3 9.3a32.05 32.05 0 0 0 .6 45.3l183.7 179.1-43.4 252.9a31.95 31.95 0 0 0 46.4 33.7L512 754l227.1 119.4c6.2 3.3 13.4 4.4 20.3 3.2 17.4-3 29.1-19.5 26.1-36.9l-43.4-252.9 183.7-179.1c5-4.9 8.3-11.3 9.3-18.3 2.7-17.5-9.5-33.7-27-36.3z" />
+        <path
+            fillRule="evenodd"
+            d="m15.1 1.58-4.13 8.88-9.86 1.27a1 1 0 0 0-.54 1.74l7.3 6.57-1.97 9.85a1 1 0 0 0 1.48 1.06l8.62-5 8.63 5a1 1 0 0 0 1.48-1.06l-1.97-9.85 7.3-6.57a1 1 0 0 0-.55-1.73l-9.86-1.28-4.12-8.88a1 1 0 0 0-1.82 0z"
+        />
     </svg>
 )
 
-export { StarIcon }
+export interface IFavoriteIconProps {
+    isFavorite: boolean
+}
+
+const FavoriteIcon = (
+    { isFavorite = false }: IFavoriteIconProps
+) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        style={{
+            display: "block",
+            fill: `${isFavorite ? "#FF385C" : "#6A6A6A"}`,
+            height: 24,
+            width: 24,
+            stroke: "#FFF",
+            strokeWidth: 2,
+            overflow: "visible",
+        }}
+        viewBox="0 0 32 32"
+    >
+        <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z" />
+    </svg>
+)
+
+export { StarIcon, FavoriteIcon }
