@@ -1,10 +1,9 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { ProfileProps } from "../Utils/interfaces"
 import { Button, DatePicker, Form, FormProps, Input, Select } from "antd"
 import { registerProfile } from "../Services/login"
 import { countries } from "../Utils/countries"
-import moment from "moment"
 
 const filterOption = (
 	input: string,
@@ -12,7 +11,7 @@ const filterOption = (
 ) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
 
 export default function ProfileRegister({}) {
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 	const [profilePictureState, setProfilePicture] = useState<File>()
 	const [dob, setDob] = useState<string>("")
 
