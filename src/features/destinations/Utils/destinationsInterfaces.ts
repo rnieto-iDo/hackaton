@@ -1,4 +1,10 @@
-import { ICoordinate } from "../../../Shared/Utils/interfaces";
+import { ICoordinate, IRequestStatus } from "../../../Shared/Utils/interfaces";
+
+export interface IDestinationSlice {
+  destinations: IDestination[];
+  selectedDestination: IDestination;
+  status: IRequestStatus;
+}
 
 export interface IDestination {
   id: number;
