@@ -3,6 +3,7 @@ import { Button, Form, Input, Select, Space, DatePicker } from "antd";
 import { useEffect, useState } from "react";
 import "./style.css";
 import RoundTripCounter from "./RoundTripCounter";
+import { roundTrip } from "../Services";
 
 const { RangePicker } = DatePicker;
 
@@ -34,8 +35,9 @@ const RoundTripContainer = () => {
   const onReset = () => {
     form.resetFields();
   };
-  const onFinish = () => {
+  const onFinish = async () => {
     const dates = form.getFieldsValue();
+    console.log(dates);
 
     const arrayDates = Object.entries(dates).map(([key, value]) => ({
       [key]: value,
@@ -45,11 +47,12 @@ const RoundTripContainer = () => {
       const fechaName = `fecha${index + 1}`;
 
       // Accedemos a la fecha correspondiente utilizando el nombre dinámico
-      const arrival_date = arrayDates[index][fechaName][0].$d;
+      const arrival_date = `${arrayDates[index][fechaName][0].$y}-${arrayDates[index][fechaName][0].$M}-${arrayDates[index][fechaName][0].$D}`;
+      const end_date = `${arrayDates[index][fechaName][1].$y}-${arrayDates[index][fechaName][1].$M}-${arrayDates[index][fechaName][1].$D}`;
       return {
         destination: item.destination,
         arrival_date: arrival_date,
-        departure_date: "sdflksdlfl",
+        departure_date: end_date,
       };
     });
     console.log("destinationsDates", destinationsDates);
@@ -63,8 +66,10 @@ const RoundTripContainer = () => {
       children: childCounter,
       pets: petCounter,
       origin: originValue,
-      destination: destinations,
+      destination: JSON.stringify(destinationsDates),
     };
+
+    await roundTrip(data);
 
     console.log("data", data);
 
