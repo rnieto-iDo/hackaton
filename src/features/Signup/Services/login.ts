@@ -1,49 +1,5 @@
 import axios from "axios"
-
-export interface IUserLogin {
-	email: string
-	password: string
-	token?: string
-}
-
-export interface IRegisterUser {
-	name: string
-	email: string
-	password: string
-	password_confirmation: string
-	gender: "male" | "female" | "other"
-	role: "user" | "agency"
-}
-
-// name: string required
-// name_juridical: string required
-// cover: file required
-// bio: string required
-// logo: file required
-// cedula: string required
-// phone_number: string required
-// address: string required
-// email: string required
-// bank_account: string required
-
-export interface IRegisterAgency {
-	name: string
-	// legal name
-	name_juridical: string
-	// coverImg
-	cover: File | HTMLImageElement
-	// description
-	bio: string
-	logo: File | HTMLImageElement
-	// personalID
-	cedula: string
-	phone_number: string
-	address: string
-	email: string
-	password: string
-	password_confirmation: string
-	role: "user" | "agency"
-}
+import { IRegisterAgency, IRegisterUser, IUserLogin } from "../Utils/interfaces"
 
 export const login = async (email: string, password: string) => {
 	try {
@@ -69,11 +25,37 @@ export const registerUser = async (props: IRegisterUser) => {
 	}
 }
 
-export const registerAgency = async (props: IRegisterAgency) => {
+export const registerAgency = async (props: any) => {
+	const token = sessionStorage.getItem("accessToken")
 	try {
 		const response = await axios.post<IRegisterAgency>(
-			`${import.meta.env.VITE_API_BASE_URL}/register`,
-			props
+			`${import.meta.env.VITE_API_BASE_URL}/agencies`,
+			props,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		)
+		return response
+	} catch (error) {
+		return error
+	}
+}
+
+export const registerProfile = async (props: any) => {
+	const token = sessionStorage.getItem("accessToken")
+	try {
+		const response = await axios.post<IRegisterAgency>(
+			`${import.meta.env.VITE_API_BASE_URL}/profiles`,
+			props,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+					"Content-Type": "multipart/form-data",
+				},
+			}
 		)
 		return response
 	} catch (error) {

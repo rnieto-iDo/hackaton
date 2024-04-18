@@ -3,7 +3,6 @@ import { registerUser } from "../Services/login"
 import { setUser } from "../Slices/UserSlice"
 import { useState } from "react"
 import { Option } from "antd/es/mentions"
-import { useNavigate } from "react-router-dom"
 
 type FieldType = {
 	name: string
@@ -15,12 +14,13 @@ type FieldType = {
 }
 
 type RegisterFormUserProps = {
-	setShowCallback: (value: boolean) => void
+	setShowAgencyCallback: (value: boolean) => void
+	setShowUserCallback: (value: boolean) => void
 }
 export default function RegisterFormUser({
-	setShowCallback,
+	setShowAgencyCallback,
+	setShowUserCallback,
 }: RegisterFormUserProps) {
-	const navigate = useNavigate()
 	const [message, setMessage] = useState<string>("")
 
 	const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
@@ -29,9 +29,9 @@ export default function RegisterFormUser({
 			sessionStorage.setItem("accessToken", response.data.token!)
 			setUser(response.data)
 			if (values.role === "agency") {
-				setShowCallback(true)
+				setShowAgencyCallback(true)
 			} else {
-				navigate("/")
+				setShowUserCallback(true)
 			}
 		} else if (response.response.status === 422) {
 			setMessage(
@@ -136,19 +136,6 @@ export default function RegisterFormUser({
 						<Option value="agency">Agency</Option>
 					</Select>
 				</Form.Item>
-
-				<Form.Item<FieldType>
-					name="gender"
-					label="Gender"
-					rules={[{ required: true, message: "Please select gender!" }]}
-				>
-					<Select placeholder="select your gender">
-						<Option value="male">Male</Option>
-						<Option value="female">Female</Option>
-						<Option value="other">Other</Option>
-					</Select>
-				</Form.Item>
-
 				<div className="flex justify-center items-center">
 					<Form.Item>
 						<Button type="primary" htmlType="submit">
