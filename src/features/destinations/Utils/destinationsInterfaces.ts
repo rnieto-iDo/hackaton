@@ -24,6 +24,7 @@ export interface IDestination {
   category: string;
   status: Status;
   age_restriction: number;
+  gallery: string[];
   tags: ITag[];
 }
 

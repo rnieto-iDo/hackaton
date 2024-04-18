@@ -6,13 +6,10 @@ import { IDestinationProps } from "../Utils/destinationsInterfaces"
 
 import { Carousel, ConfigProvider } from 'antd';
 import { Link } from "react-router-dom";
-import { setSelectedDestination } from "../Slices/destinationsSlice";
-import { useDispatch } from "react-redux";
 
 export const Card = (destination: IDestinationProps) => {
     const { id, name, country, city, logo, cover, currentLocation, location } = destination
 
-    const dispatch = useDispatch();
     const [isFavorite, setIsFavorite] = useState(false);
     const destinationName = `${name}, ${city}`;
     const destinationLocation: ICoordinate = {
@@ -21,10 +18,6 @@ export const Card = (destination: IDestinationProps) => {
     }
     const distance = useDistanceCalculator(destinationLocation, currentLocation)
     const carouselImages = [logo, cover]
-
-    const handleOnSelectDestination = () => {
-        dispatch(setSelectedDestination(destination))
-    }
 
     return (
         <article key={id} className="flex flex-col gap-[10px]">
@@ -45,7 +38,6 @@ export const Card = (destination: IDestinationProps) => {
                             carouselImages.map((image, index) => (
                                 <Link
                                     key={index}
-                                    onClick={handleOnSelectDestination}
                                     to={`/destinations/${id}`}
                                 >
                                     <img key={index} className="w-full h-full rounded-2xl" src={image} alt={name} />

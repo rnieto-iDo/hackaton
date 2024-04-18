@@ -42,6 +42,7 @@ const initialState: IDestinationSlice = {
     category: "",
     status: Status.Open,
     age_restriction: 0,
+    gallery: [],
     tags: [],
   },
   status: "idle",
@@ -68,6 +69,28 @@ export const DestinationsSlice = createSlice({
         status: "succeeded",
       };
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchSingleDestination.pending, (state) => {
+        return {
+          ...state,
+          status: "loading",
+        };
+      })
+      .addCase(fetchSingleDestination.fulfilled, (state, { payload }) => {
+        return {
+          ...state,
+          selectedDestination: payload,
+          status: "succeeded",
+        };
+      })
+      .addCase(fetchSingleDestination.rejected, (state) => {
+        return {
+          ...state,
+          status: "failed",
+        };
+      });
   },
 });
 
