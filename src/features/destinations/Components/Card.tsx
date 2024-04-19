@@ -4,7 +4,7 @@ import useDistanceCalculator from "../../../Shared/Hooks/useDistanceCalculator";
 import { ICoordinate } from "../../../Shared/Utils/interfaces";
 import { IDestinationProps } from "../Utils/destinationsInterfaces"
 
-import { Carousel, ConfigProvider } from 'antd';
+import { Carousel, ConfigProvider, Tooltip } from 'antd';
 import { Link } from "react-router-dom";
 
 export const Card = (destination: IDestinationProps) => {
@@ -56,7 +56,9 @@ export const Card = (destination: IDestinationProps) => {
 
             <div className="flex flex-col">
                 <div className="flex items-center justify-between">
-                    <h1 className="w-[85%] overflow-hidden text-[15px] font-bold whitespace-nowrap text-ellipsis font-onest">{destinationName}</h1>
+                    <Tooltip title={destinationName} placement="top">
+                        <h1 className="w-[85%] overflow-hidden text-[15px] font-bold whitespace-nowrap text-ellipsis font-onest">{destinationName}</h1>
+                    </Tooltip>
 
                     <div className="flex items-center justify-between gap-[4px] ">
                         <StarIcon />

@@ -21,3 +21,15 @@ export interface IMasonryLayoutProps {
   images: string[];
   columnsConfig: IColumnsConfig;
 }
+
+export interface ISectionLayoutProps {
+  children?: React.ReactNode;
+  containerClassName?: string;
+  titleClassName?: string;
+  title?: string;
+}
+
+export interface ITagProps {
+  title: string;
+  icon: string;
+}
