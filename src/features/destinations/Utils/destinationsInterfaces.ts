@@ -41,3 +41,8 @@ export interface ITag {
 export interface IDestinationProps extends IDestination {
   currentLocation: ICoordinate;
 }
+
+export interface IDestinationListProps {
+  destinations: IDestination[];
+  currentLocation: ICoordinate;
+}
