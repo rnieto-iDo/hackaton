@@ -3,6 +3,8 @@ import { registerUser } from "../Services/login"
 import { setUser } from "../Slices/UserSlice"
 import { useState } from "react"
 import { Option } from "antd/es/mentions"
+import { AxiosResponse } from "axios"
+import { useDispatch } from "react-redux"
 
 type FieldType = {
 	name: string
@@ -21,19 +23,20 @@ export default function RegisterFormUser({
 	setShowAgencyCallback,
 	setShowUserCallback,
 }: RegisterFormUserProps) {
+	const dispatch = useDispatch()
 	const [message, setMessage] = useState<string>("")
 
 	const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
-		const response = (await registerUser(values)) as any
+		const response = (await registerUser(values)) as AxiosResponse
 		if (response.status === 200) {
 			sessionStorage.setItem("accessToken", response.data.token!)
-			setUser(response.data)
+			dispatch(setUser(response.data))
 			if (values.role === "agency") {
 				setShowAgencyCallback(true)
 			} else {
 				setShowUserCallback(true)
 			}
-		} else if (response.response.status === 422) {
+		} else if (response.status === 422) {
 			setMessage(
 				"Email already exists, please try again with a different email"
 			)
@@ -66,7 +69,7 @@ export default function RegisterFormUser({
 				onFinishFailed={onFinishFailed}
 				autoComplete="on"
 			>
-				<p className="text-primary font-semibold">{message}</p>
+				<p className="text-themePrimary font-semibold">{message}</p>
 
 				<Form.Item<FieldType>
 					label="Name"

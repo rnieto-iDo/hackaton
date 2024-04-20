@@ -1,5 +1,10 @@
 import axios from "axios"
-import { IRegisterAgency, IRegisterUser, IUserLogin } from "../Utils/interfaces"
+import {
+	IRegisterAgency,
+	IRegisterUser,
+	IUserLogin,
+	ProfileProps,
+} from "../Utils/interfaces"
 
 export const login = async (email: string, password: string) => {
 	try {
@@ -44,10 +49,10 @@ export const registerAgency = async (props: any) => {
 	}
 }
 
-export const registerProfile = async (props: any) => {
+export const registerProfile = async (props: ProfileProps) => {
 	const token = sessionStorage.getItem("accessToken")
 	try {
-		const response = await axios.post<IRegisterAgency>(
+		const response = await axios.post<ProfileProps>(
 			`${import.meta.env.VITE_API_BASE_URL}/profiles`,
 			props,
 			{

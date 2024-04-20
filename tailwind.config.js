@@ -1,4 +1,3 @@
-import { text } from "stream/consumers";
 const colors = require("tailwindcss/colors");
 
 /** @type {import('tailwindcss').Config} */
@@ -9,6 +8,7 @@ export default {
       fontFamily: {
         onest: ["Onest", "sans-serif"],
       },
+
     },
     colors: {
       ...colors,
