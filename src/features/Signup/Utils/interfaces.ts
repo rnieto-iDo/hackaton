@@ -1,7 +1,8 @@
 export type ProfileProps = {
+	id: number
 	name: string
 	nationality: string
-	date_of_birth: string
+	date_of_birth: any
 	photo: File
 }
 

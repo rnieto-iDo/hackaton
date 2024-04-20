@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchAgencies, fetchAgencyById } from "../Services";
+import { fetchAgencies, fetchAgencyById, fetchDestinationAll } from "../Services";
+
 import {
   IAgencies,
   IAgenciesSlice,
@@ -33,6 +34,20 @@ export const fetchSingleAgency = createAsyncThunk(
     }
   }
 );
+
+export const fetchAllDestinations = createAsyncThunk(
+  "agencies/getDestinations",
+  async () => {
+    try {
+      const response = await fetchDestinationAll();
+      return response.data;
+    } catch (error) {
+      return handleAsyncThunkError(error as Error);
+    }
+  }
+);
+
+
 
 const initialState: IAgenciesSlice = {
   agencies: [],

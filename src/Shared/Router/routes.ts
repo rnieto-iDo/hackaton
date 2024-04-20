@@ -19,13 +19,13 @@ const routes = {
     path: "/login",
     name: "Login",
   },
-  RoundTrip: {
-    path: "/roundTrip",
-    name: "roundTrip",
-  },
   DestinationsByAgency: {
     path: "agencies/:id/destinations",
     name: "DestinationsByAgency",
+  },
+  RoundTrip: {
+    path: "/roundTrip",
+    name: "roundTrip",
   },
   DestinationById: {
     path: "/destinations/:id",
@@ -34,6 +34,10 @@ const routes = {
   Tags: {
     path: "/tags",
     name: "Tags",
+  },
+  DestinationForm: {
+    path: "/destinationForm",
+    name: "Destination Form",
   },
 };
 

@@ -4,15 +4,28 @@ import { ITagTypeProps } from "../Utils/interfaces"
 import { getTags, setUserTags } from "../Services/tagsHelper"
 import { Button } from "antd"
 import TagSkeleton from "./TagSkeleton"
+import { useAppSelector } from "../../../Shared/App/hook"
+import { useNavigate } from "react-router-dom"
 
 export default function Tags({ type }: ITagTypeProps) {
+	const navigate = useNavigate()
 	const [tags, setTags] = useState<ITagProps[]>([])
 	const [selectedTags, setSelectedTags] = useState<ITagProps[]>([])
-	const [isLoading, setIslLoading] = useState(false)
+	const [isLoading, setIslLoading] = useState(true)
 
-	const handleTagSubmit = () => {
-		const response = setUserTags(selectedTags)
-		console.log(response)
+	const profile = useAppSelector((state) => state.user.profile)
+
+	const handleTagSubmit = async () => {
+		const tagIds = selectedTags.map((tag) => tag.id)
+		try {
+			const response = await setUserTags(tagIds, profile.id)
+			if (response.status === 200) {
+				console.log("Tags set successfully")
+				navigate("/")
+			}
+		} catch (error) {
+			console.error("Error setting tags:", error)
+		}
 	}
 
 	const handleTagSelection = (index: number) => {
@@ -40,12 +53,12 @@ export default function Tags({ type }: ITagTypeProps) {
 	}, [])
 
 	return (
-		<div className="w-full h-screen flex flex-col overflow-y-scroll bg-themebg items-center justify-evenly z-10 px-4 ">
+		<div className="w-full h-screen flex flex-col overflow-y-scroll bg-themeOffwhite  items-center justify-evenly z-10 px-4 ">
 			<div className="">
 				<span>logo</span>
 
 				{type === "user" ? (
-					<h1 className="text-text font-semibold text-2xl my-10 text-center">
+					<h1 className="text-themeText font-semibold text-2xl my-10 text-center">
 						Craft Your Adventure: What Are You Looking for in a Destination?
 					</h1>
 				) : (
@@ -56,7 +69,7 @@ export default function Tags({ type }: ITagTypeProps) {
 			</div>
 			<div
 				className={`flex flex-wrap gap-2 px-2 max-h-[400px] overflow-y-scroll ${
-					isLoading && "animate-pulse"
+					isLoading ? "animate-pulse" : "animate-none"
 				}`}
 			>
 				{isLoading ? (
@@ -66,10 +79,10 @@ export default function Tags({ type }: ITagTypeProps) {
 						{tags.map((tag, index) => (
 							<div
 								key={index}
-								className={`flex items-center gap-2 px-2 py-1 rounded-full text-sm font-medium text-text cursor-pointer transition-colors brightness-75 ${
+								className={`flex items-center gap-2 px-2 py-1 rounded-full text-sm font-medium text-text cursor-pointer transition-colors border border-themePrimary ${
 									selectedTags.some((selectedTag) => selectedTag.id === tag.id)
-										? "border-2 border-primary bg-primary/80 brightness-150"
-										: "border border-primary"
+										? " bg-themePrimary "
+										: " bg-themeOffwhite border border-themePrimary"
 								}`}
 								onClick={() => handleTagSelection(index)}
 							>
@@ -83,7 +96,12 @@ export default function Tags({ type }: ITagTypeProps) {
 				)}
 			</div>
 
-			<Button type="primary" className="w-full mt-4" onClick={handleTagSubmit}>
+			<Button
+				type="primary"
+				className="w-full mt-4"
+				onClick={handleTagSubmit}
+				shape="round"
+			>
 				Finish
 			</Button>
 		</div>

@@ -3,6 +3,7 @@ import { login } from "../Services/login"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { setUser } from "../Slices/UserSlice"
+import { useDispatch } from "react-redux"
 
 type FieldType = {
 	email: string
@@ -12,6 +13,7 @@ type FieldType = {
 
 export default function LoginForm() {
 	const navigate = useNavigate()
+	const dispatch = useDispatch()
 	const [message, setMessage] = useState<string>("")
 
 	const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
@@ -19,8 +21,7 @@ export default function LoginForm() {
 
 		if (response.status === 200) {
 			sessionStorage.setItem("accessToken", response.data.token!)
-			console.log(response.data)
-			setUser(response.data)
+			dispatch(setUser(response.data))
 			navigate("/")
 		} else if (response.response.status === 401) {
 			setMessage("User not found with these credencials")
@@ -45,7 +46,7 @@ export default function LoginForm() {
 				initialValues={{ remember: true }}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
-				autoComplete="off"
+				autoComplete="on"
 			>
 				<Form.Item<FieldType>
 					label="Email"

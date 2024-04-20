@@ -94,7 +94,7 @@ export default function AgencyRegister() {
         <h1 className="text-text font-semibold text-2xl my-10">
           Create Your Agency
         </h1>
-        <p className="text-primary font-semibold">{meesageState}</p>
+        <p className="text-themePrimary font-semibold">{meesageState}</p>
 
         <Form.Item<FieldType>
           label="Agency Name"

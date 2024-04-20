@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchDestinationById } from "../Services";
+import { fetchDestinationById, fetchDestinations } from "../Services";
 import {
   IDestination,
   IDestinationSlice,
@@ -22,6 +22,18 @@ export const fetchSingleDestination = createAsyncThunk(
   }
 );
 
+export const fetchAllDestinations = createAsyncThunk(
+  "destinations/getAll",
+  async () => {
+    try {
+      const response = await fetchDestinations();
+    
+      return response.data;
+    } catch (error) {
+      return handleAsyncThunkError(error as Error);
+    }
+  }
+);
 const initialState: IDestinationSlice = {
   destinations: [],
   selectedDestination: {
@@ -90,7 +102,15 @@ export const DestinationsSlice = createSlice({
           ...state,
           status: "failed",
         };
-      });
+      })
+      .addCase(fetchAllDestinations.fulfilled, (state,{payload} ) => {
+        return {
+          ...state,
+          destinations: payload,
+          status: "succeeded",
+        };
+      }
+      )
   },
 });
 

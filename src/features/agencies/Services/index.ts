@@ -20,3 +20,13 @@ export const fetchAgencyById = async (id: string): Promise<AxiosResponse> => {
 	const response = await axiosInstance.get(`/${id}`)
 	return response
 }
+
+export const fetchDestinationAll = async (): Promise<AxiosResponse> => {
+	const axiosInstance = createAxiosInstance(
+		// userData,
+		`${PATH_LIST.DESTINATIONS}`
+	)
+
+	const response = await axiosInstance.get("")
+	return response
+}
