@@ -1,19 +1,15 @@
 import { useEffect, useRef } from "react";
 import { PageLayout } from "../../../Shared/Containers/pageLayout";
-import { useParams } from "react-router-dom";
+
 import { useAppDispatch, useAppSelector } from "../../../Shared/App/hook";
-import {
-  fetchSingleAgency,
-  resetAgencySelection,
-} from "../../agencies/Slices/agenciesSlice";
+
 import { DestinationList } from "../Components/DestinationList";
 
-export const Destinations = () => {
-  const { id } = useParams();
+import { fetchAllDestinations } from "../../destinations/Slices/destinationsSlice";
+
+export const HomeDestinations = () => {
   const dispatch = useAppDispatch();
-  const selectedAgency = useAppSelector(
-    (state) => state.agencies.selectedAgency
-  );
+  const HomeDestinations = useAppSelector((state) => state.destinations);
   const currentLocationRef = useRef({ latitude: 0, longitude: 0 });
 
   if (navigator.geolocation) {
@@ -24,17 +20,14 @@ export const Destinations = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchSingleAgency(id ?? "0"));
-
-    return () => {
-      dispatch(resetAgencySelection());
-    };
+    dispatch(fetchAllDestinations());
+    console.log("fetching destinations", HomeDestinations.destinations);
   }, []);
 
   return (
-    <PageLayout pageName={`${selectedAgency.name} Destinations`}>
+    <PageLayout pageName={` Destinations`}>
       <DestinationList
-        destinations={selectedAgency.destinations}
+        destinations={HomeDestinations.destinations}
         currentLocation={currentLocationRef.current}
       />
     </PageLayout>

@@ -1,7 +1,7 @@
 import { ICoordinate, IRequestStatus } from "../../../Shared/Utils/interfaces";
 
 export interface IDestinationSlice {
-  destinations: IDestination[];
+  destinations: AllDestinations[];
   selectedDestination: IDestination;
   status: IRequestStatus;
 }
@@ -46,3 +46,18 @@ export interface IDestinationListProps {
   destinations: IDestination[];
   currentLocation: ICoordinate;
 }
+
+
+export interface AllDestinations {
+  id:              number;
+  name:            string;
+  cover:           string;
+  logo:            string;
+  type:            string;
+  category:        string;
+  country:         string;
+  city:            string;
+  price:           null;
+  age_restriction: number;
+}
+
