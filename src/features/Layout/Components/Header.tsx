@@ -9,15 +9,10 @@ export const Header = () => {
   const inLogin = true;
 
   const logOut = () => {
-    //remove token from local storage accessToken
-    console.log("asdfasdf");
-    localStorage.removeItem("accessToken");
-
-    //redirect to login page
-    history.push("/");
+    window.location.href = "/login";
   };
   //
-  const items: MenuProps["items"] = [
+  const items = [
     {
       key: "1",
       label: <Link to="/profile">My Profile</Link>,

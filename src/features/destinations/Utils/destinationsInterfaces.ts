@@ -57,7 +57,8 @@ export interface AllDestinations {
   category:        string;
   country:         string;
   city:            string;
-  price:           null;
+  price:           null  | number;
+  location:         string;
   age_restriction: number;
 }
 

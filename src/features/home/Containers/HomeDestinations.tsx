@@ -25,7 +25,7 @@ export const HomeDestinations = () => {
   }, []);
 
   return (
-    <PageLayout pageName={` Destinations`}>
+    <PageLayout pageName={`Destinations`}>
       <DestinationList
         destinations={HomeDestinations.destinations}
         currentLocation={currentLocationRef.current}

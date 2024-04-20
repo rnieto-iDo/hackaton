@@ -7,8 +7,8 @@ export interface Destination {
   category:        string;
   country:         string;
   city:            string;
-  location: string;
-  price:           number | null ;
+  price:           null  | number;
+  location:         string;
   age_restriction: number;
 }
 export interface IDestinationListProps {
