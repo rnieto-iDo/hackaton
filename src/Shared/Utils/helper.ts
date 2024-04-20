@@ -23,3 +23,14 @@ export const iconSelector = (icon: string) => {
       return WifiIcon;
   }
 };
+
+export const capitalizeFirstLetter = (text: string | null): string | null => {
+  if (text && typeof text === "string") {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+  return text;
+};
+
+export const trimPunctuation = (text: string): string => {
+  return text.replace(/^['".]+|['".]+$/g, "").trim();
+};

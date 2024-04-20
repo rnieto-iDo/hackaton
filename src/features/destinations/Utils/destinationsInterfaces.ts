@@ -46,3 +46,9 @@ export interface IDestinationListProps {
   destinations: IDestination[];
   currentLocation: ICoordinate;
 }
+
+export interface IAgencyProfileProps {
+  logo: string;
+  name: string;
+  bio: string;
+}
