@@ -31,6 +31,10 @@ const routes = {
 		path: "/tags",
 		name: "Tags",
 	},
+	DestinationForm: {
+		path: "/destinationForm",
+		name: "Destination Form",
+	},
 }
 
 export default routes
