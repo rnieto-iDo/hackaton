@@ -1,62 +1,62 @@
 export const tagList = [
-  {
-    title: "Wifi",
-    icon: "wifi",
-  },
-  {
-    title: "Kitchen",
-    icon: "kitchen",
-  },
-  {
-    title: "Valet parking",
-    icon: "car",
-  },
-  {
-    title: "Shampoo",
-    icon: "shower",
-  },
-  {
-    title: "Working area",
-    icon: "working area",
-  },
-  {
-    title: "Wifi",
-    icon: "wifi",
-  },
-  {
-    title: "Kitchen",
-    icon: "kitchen",
-  },
-  {
-    title: "Valet parking",
-    icon: "car",
-  },
-  {
-    title: "Shampoo",
-    icon: "shower",
-  },
-  {
-    title: "Working area",
-    icon: "working area",
-  },
-  {
-    title: "Wifi",
-    icon: "wifi",
-  },
-  {
-    title: "Kitchen",
-    icon: "kitchen",
-  },
-  {
-    title: "Valet parking",
-    icon: "car",
-  },
-  {
-    title: "Shampoo",
-    icon: "shower",
-  },
-  {
-    title: "Working area",
-    icon: "working area",
-  },
-];
+	{
+		name: "Wifi",
+		icon: "wifi",
+	},
+	{
+		name: "Kitchen",
+		icon: "kitchen",
+	},
+	{
+		name: "Valet parking",
+		icon: "car",
+	},
+	{
+		name: "Shampoo",
+		icon: "shower",
+	},
+	{
+		name: "Working area",
+		icon: "working area",
+	},
+	{
+		name: "Wifi",
+		icon: "wifi",
+	},
+	{
+		name: "Kitchen",
+		icon: "kitchen",
+	},
+	{
+		name: "Valet parking",
+		icon: "car",
+	},
+	{
+		name: "Shampoo",
+		icon: "shower",
+	},
+	{
+		name: "Working area",
+		icon: "working area",
+	},
+	{
+		name: "Wifi",
+		icon: "wifi",
+	},
+	{
+		name: "Kitchen",
+		icon: "kitchen",
+	},
+	{
+		name: "Valet parking",
+		icon: "car",
+	},
+	{
+		name: "Shampoo",
+		icon: "shower",
+	},
+	{
+		name: "Working area",
+		icon: "working area",
+	},
+]

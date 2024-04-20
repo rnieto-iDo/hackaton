@@ -30,7 +30,7 @@ export interface ISectionLayoutProps {
 }
 
 export interface ITagProps {
-	id: number
+	id?: number
 	name: string
 	icon: string
 }
