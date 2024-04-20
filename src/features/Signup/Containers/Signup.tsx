@@ -3,16 +3,26 @@ import LoginForm from "../Components/LoginForm"
 import RegisterFormUser from "../Components/RegisterFormUser"
 import AgencyRegister from "./AgencyRegister"
 import ProfileRegister from "./ProfileRegister"
+import Tags from "../../tags/Components/Tags"
+import { ITagTypeProps } from "../../tags/Utils/interfaces"
 
 export default function Signup() {
 	const [isLogin, setIsLogin] = useState(true)
 	const [isAgencyShown, setIsAgencyShown] = useState(false)
 	const [isUserShown, setIsUserShown] = useState(false)
+	const [isTagShown, setIsTagShown] = useState(false)
+	const [tagType, setTagType] = useState<ITagTypeProps>({ type: "agency" })
 
 	return (
 		<>
 			{isAgencyShown && <AgencyRegister />}
-			{isUserShown && <ProfileRegister />}
+			{isUserShown && (
+				<ProfileRegister
+					setIsTagShown={setIsTagShown}
+					setTagType={setTagType}
+				/>
+			)}
+			{isTagShown && <Tags type={tagType.type} />}
 			{!isAgencyShown && !isUserShown && (
 				<div className="w-full h-screen flex flex-col justify-center items-center bg-offwhite overflow-hidden">
 					<div className="w-3/4 bg-themebg py-8 px-4">

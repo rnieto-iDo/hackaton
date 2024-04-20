@@ -3,8 +3,8 @@ import axios, { AxiosInstance } from "axios";
 export enum PATH_LIST {
   AGENCIES = "/agencies",
   PROFILES = "/profiles",
+  DESTINATIONS = "/destinations",
 }
-
 export interface IUserData {
   jwtToken: string;
 }

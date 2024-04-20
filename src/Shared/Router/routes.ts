@@ -12,24 +12,28 @@ const routes = {
     name: "Agencies",
   },
   Profile: {
-    path: "/profile/:id",
+    path: "/profile",
     name: "profile",
-  },
-  RoundTrip: {
-    path: "/roundTrip",
-    name: "roundTrip",
   },
   Login: {
     path: "/login",
     name: "Login",
   },
-  Register: {
-    path: "/Register",
-    name: "Register",
+  RoundTrip: {
+    path: "/roundTrip",
+    name: "roundTrip",
   },
   DestinationsByAgency: {
     path: "agencies/:id/destinations",
     name: "DestinationsByAgency",
+  },
+  DestinationById: {
+    path: "/destinations/:id",
+    name: "DestinationsById",
+  },
+  Tags: {
+    path: "/tags",
+    name: "Tags",
   },
 };
 

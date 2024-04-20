@@ -1,5 +1,5 @@
 import RoundTripHeader from "./RoundTripHeader";
-import { Button, Form, Input, Select, Space, DatePicker } from "antd";
+import { Button, Form, Space, DatePicker } from "antd";
 import { useEffect, useState } from "react";
 import "./style.css";
 import RoundTripCounter from "./RoundTripCounter";
@@ -22,6 +22,23 @@ interface Destinations {
   arrival_date: string;
   departure_date: string;
 }
+declare global {
+  interface Window {
+    initMap: (() => void) | null;
+  }
+}
+
+declare global {
+  interface Window {
+    google: {
+      maps: {
+        places: {
+          Autocomplete: any;
+        };
+      };
+    };
+  }
+}
 
 const RoundTripContainer = () => {
   const [form] = Form.useForm();
@@ -39,14 +56,13 @@ const RoundTripContainer = () => {
     const dates = form.getFieldsValue();
     console.log(dates);
 
-    const arrayDates = Object.entries(dates).map(([key, value]) => ({
+    const arrayDates: any = Object.entries(dates).map(([key, value]) => ({
       [key]: value,
     }));
 
     const destinationsDates = destinations.map((item, index) => {
       const fechaName = `fecha${index + 1}`;
 
-      // Accedemos a la fecha correspondiente utilizando el nombre dinámico
       const arrival_date = `${arrayDates[index][fechaName][0].$y}-${arrayDates[index][fechaName][0].$M}-${arrayDates[index][fechaName][0].$D}`;
       const end_date = `${arrayDates[index][fechaName][1].$y}-${arrayDates[index][fechaName][1].$M}-${arrayDates[index][fechaName][1].$D}`;
       return {
@@ -56,9 +72,6 @@ const RoundTripContainer = () => {
       };
     });
     console.log("destinationsDates", destinationsDates);
-    // const { fecha } = date;
-    // const originDate = fecha[0].$y;
-    // console.log("origin date", originDate);
 
     console.log("origin value format", originValue);
     const data = {
@@ -123,8 +136,8 @@ const RoundTripContainer = () => {
             ...prevDestinations,
             {
               destination: nearPlace.formatted_address,
-              arrival_date: "asdsdf",
-              departure_date: "sdfsdfs",
+              arrival_date: "test",
+              departure_date: "test",
             },
           ]);
         });
@@ -139,7 +152,8 @@ const RoundTripContainer = () => {
       const script = document.querySelector(
         'script[src^="https://maps.googleapis.com/maps/api/js"]'
       );
-      script.parentNode.removeChild(script);
+
+      script?.parentNode!.removeChild(script);
     };
   }, [arrayDates]);
 
