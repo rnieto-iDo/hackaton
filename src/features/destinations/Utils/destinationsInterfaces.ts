@@ -48,6 +48,7 @@ export interface IDestinationListProps {
 }
 
 
+
 export interface AllDestinations {
   id:              number;
   name:            string;
@@ -60,5 +61,11 @@ export interface AllDestinations {
   price:           null  | number;
   location:         string;
   age_restriction: number;
+}
+
+export interface IAgencyProfileProps {
+  logo: string;
+  name: string;
+  bio: string;
 }
 
