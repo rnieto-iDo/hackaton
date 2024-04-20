@@ -1,4 +1,10 @@
-import { ICoordinate } from "../../../Shared/Utils/interfaces";
+import { ICoordinate, IRequestStatus } from "../../../Shared/Utils/interfaces";
+
+export interface IDestinationSlice {
+  destinations: AllDestinations[];
+  selectedDestination: IDestination;
+  status: IRequestStatus;
+}
 
 export interface IDestination {
   id: number;
@@ -18,6 +24,7 @@ export interface IDestination {
   category: string;
   status: Status;
   age_restriction: number;
+  gallery: string[];
   tags: ITag[];
 }
 
@@ -34,3 +41,24 @@ export interface ITag {
 export interface IDestinationProps extends IDestination {
   currentLocation: ICoordinate;
 }
+
+export interface IDestinationListProps {
+  destinations: IDestination[];
+  currentLocation: ICoordinate;
+}
+
+
+export interface AllDestinations {
+  id:              number;
+  name:            string;
+  cover:           string;
+  logo:            string;
+  type:            string;
+  category:        string;
+  country:         string;
+  city:            string;
+  price:           null  | number;
+  location:         string;
+  age_restriction: number;
+}
+

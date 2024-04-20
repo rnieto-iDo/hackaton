@@ -1,8 +1,8 @@
 import { Button, Form, FormProps, Input } from "antd"
 import { login } from "../Services/login"
-
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { setUser } from "../Slices/UserSlice"
 
 type FieldType = {
 	email: string
@@ -18,9 +18,9 @@ export default function LoginForm() {
 		const response = (await login(values.email, values.password)) as any
 
 		if (response.status === 200) {
-			console.log("logged in")
-
 			sessionStorage.setItem("accessToken", response.data.token!)
+			console.log(response.data)
+			setUser(response.data)
 			navigate("/")
 		} else if (response.response.status === 401) {
 			setMessage("User not found with these credencials")

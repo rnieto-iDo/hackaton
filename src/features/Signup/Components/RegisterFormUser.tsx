@@ -1,9 +1,8 @@
 import { Button, Form, FormProps, Input, Select } from "antd"
-import { register } from "../Services/login"
+import { registerUser } from "../Services/login"
 import { setUser } from "../Slices/UserSlice"
 import { useState } from "react"
 import { Option } from "antd/es/mentions"
-import { useNavigate } from "react-router-dom"
 
 type FieldType = {
 	name: string
@@ -14,18 +13,26 @@ type FieldType = {
 	role: "user" | "agency"
 }
 
-export default function RegisterForm() {
-	const navigate = useNavigate()
+type RegisterFormUserProps = {
+	setShowAgencyCallback: (value: boolean) => void
+	setShowUserCallback: (value: boolean) => void
+}
+export default function RegisterFormUser({
+	setShowAgencyCallback,
+	setShowUserCallback,
+}: RegisterFormUserProps) {
 	const [message, setMessage] = useState<string>("")
 
 	const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
-		const response = (await register(values)) as any
-		console.log(response, "response")
-
+		const response = (await registerUser(values)) as any
 		if (response.status === 200) {
 			sessionStorage.setItem("accessToken", response.data.token!)
 			setUser(response.data)
-			navigate("/")
+			if (values.role === "agency") {
+				setShowAgencyCallback(true)
+			} else {
+				setShowUserCallback(true)
+			}
 		} else if (response.response.status === 422) {
 			setMessage(
 				"Email already exists, please try again with a different email"
@@ -120,18 +127,6 @@ export default function RegisterForm() {
 				</Form.Item>
 
 				<Form.Item<FieldType>
-					name="gender"
-					label="Gender"
-					rules={[{ required: true, message: "Please select gender!" }]}
-				>
-					<Select placeholder="select your gender">
-						<Option value="male">Male</Option>
-						<Option value="female">Female</Option>
-						<Option value="other">Other</Option>
-					</Select>
-				</Form.Item>
-
-				<Form.Item<FieldType>
 					name="role"
 					label="User"
 					rules={[{ required: true, message: "Please select a role" }]}
@@ -141,12 +136,13 @@ export default function RegisterForm() {
 						<Option value="agency">Agency</Option>
 					</Select>
 				</Form.Item>
-
-				<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-					<Button type="primary" htmlType="submit">
-						Register
-					</Button>
-				</Form.Item>
+				<div className="flex justify-center items-center">
+					<Form.Item>
+						<Button type="primary" htmlType="submit">
+							Register
+						</Button>
+					</Form.Item>
+				</div>
 			</Form>
 		</>
 	)

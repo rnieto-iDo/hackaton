@@ -1,19 +1,5 @@
 import axios from "axios"
-
-export interface IUserLogin {
-	email: string
-	password: string
-	token?: string
-}
-
-export interface IRegister {
-	name: string
-	email: string
-	password: string
-	password_confirmation: string
-	gender: "male" | "female" | "other"
-	role: "user" | "agency"
-}
+import { IRegisterAgency, IRegisterUser, IUserLogin } from "../Utils/interfaces"
 
 export const login = async (email: string, password: string) => {
 	try {
@@ -27,11 +13,49 @@ export const login = async (email: string, password: string) => {
 	}
 }
 
-export const register = async (props: IRegister) => {
+export const registerUser = async (props: IRegisterUser) => {
 	try {
-		const response = await axios.post<IRegister>(
+		const response = await axios.post<IRegisterUser>(
 			`${import.meta.env.VITE_API_BASE_URL}/register`,
 			props
+		)
+		return response
+	} catch (error) {
+		return error
+	}
+}
+
+export const registerAgency = async (props: any) => {
+	const token = sessionStorage.getItem("accessToken")
+	try {
+		const response = await axios.post<IRegisterAgency>(
+			`${import.meta.env.VITE_API_BASE_URL}/agencies`,
+			props,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		)
+		return response
+	} catch (error) {
+		return error
+	}
+}
+
+export const registerProfile = async (props: any) => {
+	const token = sessionStorage.getItem("accessToken")
+	try {
+		const response = await axios.post<IRegisterAgency>(
+			`${import.meta.env.VITE_API_BASE_URL}/profiles`,
+			props,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+					"Content-Type": "multipart/form-data",
+				},
+			}
 		)
 		return response
 	} catch (error) {
