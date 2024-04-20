@@ -16,7 +16,7 @@ export default function Signup() {
 	return (
 		<>
 			{isAgencyShown && <AgencyRegister />}
-			{isUserShown && (
+			{isUserShown && !isTagShown && (
 				<ProfileRegister
 					setIsTagShown={setIsTagShown}
 					setTagType={setTagType}
@@ -26,7 +26,6 @@ export default function Signup() {
 			{!isAgencyShown && !isUserShown && (
 				<div className="w-full h-screen flex flex-col justify-center items-center bg-themeOffwhite overflow-hidden">
 					<div className="w-3/4 bg-themebg py-8 px-4">
-						<span>logo</span>
 						<div className="flex justify-center items-center gap-4 m-4">
 							<button
 								onClick={() => setIsLogin(!isLogin)}

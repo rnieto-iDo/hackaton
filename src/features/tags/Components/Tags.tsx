@@ -55,8 +55,6 @@ export default function Tags({ type }: ITagTypeProps) {
 	return (
 		<div className="w-full h-screen flex flex-col overflow-y-scroll bg-themeOffwhite  items-center justify-evenly z-10 px-4 ">
 			<div className="">
-				<span>logo</span>
-
 				{type === "user" ? (
 					<h1 className="text-themeText font-semibold text-2xl my-10 text-center">
 						Craft Your Adventure: What Are You Looking for in a Destination?

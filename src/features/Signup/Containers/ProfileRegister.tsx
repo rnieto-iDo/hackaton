@@ -65,7 +65,6 @@ export default function ProfileRegister({
 
 	return (
 		<div className="w-full h-screen flex flex-col overflow-y-scroll bg-themebg items-center justify-evenly z-10">
-			<span>logo</span>
 			<Form
 				name="signUpForm"
 				labelCol={{ span: 8 }}
