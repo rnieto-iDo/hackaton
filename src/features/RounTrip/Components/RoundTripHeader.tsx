@@ -1,5 +1,4 @@
 import { Location } from "../../../assets/RoundTrip";
-import { useEffect } from "react";
 
 const RoundTripHeader = () => {
   return (

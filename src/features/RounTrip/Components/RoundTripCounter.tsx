@@ -10,12 +10,11 @@ const RoundTripCounter = ({
   description,
   setCounter,
 }: RoundTripsCounterProps) => {
-  const handleIncrement = (e) => {
+  const handleIncrement = () => {
     setCounter(counter + 1);
   };
 
-  const handleDecrement = (e) => {
-    e.stopPropagation();
+  const handleDecrement = () => {
     if (counter <= 0) return;
     setCounter(counter - 1);
   };

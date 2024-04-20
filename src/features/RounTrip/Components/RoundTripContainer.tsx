@@ -15,7 +15,6 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
-const getFields = () => {};
 
 interface Destinations {
   destination: string;
