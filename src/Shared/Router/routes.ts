@@ -23,6 +23,14 @@ const routes = {
 		path: "agencies/:id/destinations",
 		name: "DestinationsByAgency",
 	},
+	DestinationById: {
+		path: "/destinations/:id",
+		name: "DestinationsById",
+	},
+	Tags: {
+		path: "/tags",
+		name: "Tags",
+	},
 }
 
 export default routes

@@ -1,19 +1,28 @@
 import { useState } from "react"
-// import { useNavigate } from "react-router-dom"
 import { ProfileProps } from "../Utils/interfaces"
 import { Button, DatePicker, Form, FormProps, Input, Select } from "antd"
 import { registerProfile } from "../Services/login"
 import { countries } from "../Utils/countries"
+import { ITagTypeProps } from "../../tags/Utils/interfaces"
+
+type ProfileRegisterProps = {
+	setIsTagShown: (value: boolean) => void
+	setTagType: (value: ITagTypeProps) => void
+}
 
 const filterOption = (
 	input: string,
 	option?: { label: string; value: string }
 ) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
 
-export default function ProfileRegister({}) {
+export default function ProfileRegister({
+	setIsTagShown,
+	setTagType,
+}: ProfileRegisterProps) {
 	// const navigate = useNavigate()
 	const [profilePictureState, setProfilePicture] = useState<File>()
 	const [dob, setDob] = useState<string>("")
+	const [meesageState, setMessageState] = useState<string>("")
 
 	const handleProfileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (!event.target.files) return
@@ -23,8 +32,6 @@ export default function ProfileRegister({}) {
 		}
 	}
 
-	const [meesageState, setMessageState] = useState<string>("")
-
 	const onFinish: FormProps<ProfileProps>["onFinish"] = async (
 		values: ProfileProps
 	) => {
@@ -33,9 +40,8 @@ export default function ProfileRegister({}) {
 		const response = (await registerProfile(values)) as any
 
 		if (response.status === 201) {
-			console.log("registered")
-
-			// navigate("/")
+			setIsTagShown(true)
+			setTagType({ type: "user" })
 		} else {
 			setMessageState("Something went wrong, please try again later")
 		}

@@ -6,6 +6,9 @@ import Profile from "../../features/profile/Containers/Profile";
 import { Destinations } from "../../features/destinations/Containers/Destinations";
 import Signup from "../../features/Signup/Containers/Signup";
 
+import { Destination } from "../../features/destinations/Containers/Destination";
+import Tags from "../../features/tags/Components/Tags";
+
 export default function Router() {
   return (
     <Routes>
@@ -13,6 +16,14 @@ export default function Router() {
       <Route path={routes.Agencies.path} element={<Agencies />} />
       <Route path={routes.Profile.path} element={<Profile />} />
       <Route path={routes.Login.path} element={<Signup />} />
+
+      <Route path={routes.Tags.path} element={<Tags />} />
+
+      <Route
+        path={routes.DestinationsByAgency.path}
+        element={<Destinations />}
+      />
+      <Route path={routes.DestinationById.path} element={<Destination />} />
 
       <Route
         path={routes.DestinationsByAgency.path}
