@@ -3,6 +3,7 @@ import axios, { AxiosInstance } from "axios";
 export enum PATH_LIST {
   AGENCIES = "/agencies",
   PROFILES = "/profiles",
+  DESTINATIONS = "/destinations",
 }
 
 export const createAxiosInstance = (
@@ -11,8 +12,9 @@ export const createAxiosInstance = (
 ): AxiosInstance => {
   const baseURL = `${import.meta.env.VITE_API_BASE_URL as string}${PATH}`;
 
+  const token = sessionStorage.getItem("accessToken");
   const headers = {
-    // Authorization: `Bearer ${userData.jwtToken}`,
+    Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   };
 

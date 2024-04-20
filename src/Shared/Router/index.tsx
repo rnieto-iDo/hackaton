@@ -3,8 +3,12 @@ import routes from "./routes"
 import Home from "../Components/Home"
 import { Agencies } from "../../features/agencies/Containers/Agencies"
 import Profile from "../../features/profile/Containers/Profile"
-import Login from "../../features/Login/Containers/Login"
-import Register from "../../features/Register/Containers/Register"
+import { Destinations } from "../../features/destinations/Containers/Destinations"
+import Signup from "../../features/Signup/Containers/Signup"
+
+import { Destination } from "../../features/destinations/Containers/Destination"
+import Tags from "../../features/tags/Components/Tags"
+import DestinationForm from "../../features/destinations/Components/DestinationForm"
 
 export default function Router() {
 	return (
@@ -12,8 +16,22 @@ export default function Router() {
 			<Route path={routes.Home.path} element={<Home />} />
 			<Route path={routes.Agencies.path} element={<Agencies />} />
 			<Route path={routes.Profile.path} element={<Profile />} />
-			<Route path={routes.Login.path} element={<Login />} />
-			<Route path={routes.Register.path} element={<Register />} />
+			<Route path={routes.Login.path} element={<Signup />} />
+
+			<Route path={routes.Tags.path} element={<Tags />} />
+
+			<Route
+				path={routes.DestinationsByAgency.path}
+				element={<Destinations />}
+			/>
+			<Route path={routes.DestinationById.path} element={<Destination />} />
+
+			<Route
+				path={routes.DestinationsByAgency.path}
+				element={<Destinations />}
+			/>
+
+			<Route path={routes.DestinationForm.path} element={<DestinationForm />} />
 
 			<Route path="/404" element={<>404 page</>} />
 
