@@ -14,3 +14,8 @@ export interface Profiles {
   date_of_birth: string;
   photo: string;
 }
+
+export interface ProfileWrapper {
+  photo: string;
+  title: string;
+}

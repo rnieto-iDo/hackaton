@@ -5,6 +5,9 @@ export enum PATH_LIST {
   PROFILES = "/profiles",
   DESTINATIONS = "/destinations",
 }
+export interface IUserData {
+  jwtToken: string;
+}
 
 export const createAxiosInstance = (
   // userData: IUserData,

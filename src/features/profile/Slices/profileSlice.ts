@@ -7,14 +7,17 @@ const handleAsyncThunkError = (error: Error) => {
   throw error;
 };
 
-export const fetchAllProfile = createAsyncThunk("profiles/getAll", async () => {
-  try {
-    const response = await fetchProfiles();
-    return response.data;
-  } catch (error) {
-    return handleAsyncThunkError(error as Error);
+export const fetchAllProfile = createAsyncThunk(
+  "profiles/getAll",
+  async (id: string) => {
+    try {
+      const response = await fetchProfiles(id);
+      return response.data;
+    } catch (error) {
+      return handleAsyncThunkError(error as Error);
+    }
   }
-});
+);
 
 const initialState: ProfileSlice = {
   profiles: [],
