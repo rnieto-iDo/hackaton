@@ -4,6 +4,7 @@ export interface IDestinationSlice {
 	destinations: AllDestinations[]
 	selectedDestination: IDestination
 	status: IRequestStatus
+	createdDestination?: IdestinationFormProps
 }
 
 export interface IDestination {
@@ -68,6 +69,7 @@ export interface IAgencyProfileProps {
 }
 
 export interface IdestinationFormProps {
+	id?: number
 	name: string
 	description: string
 	location: string
