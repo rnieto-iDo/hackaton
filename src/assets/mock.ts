@@ -107,6 +107,26 @@ export const TRAVEL_LIST: ITravelLite[] = [
       },
     ],
   },
+  {
+    id: 5,
+    status: "pending",
+    origin: "Managua",
+    adults: 1,
+    children: 0,
+    pets: 0,
+    meta: [
+      {
+        destination: "San Jose, San Jose, Costa Rica",
+        arrival_date: "2024-06-13",
+        departure_date: "2024-06-19",
+      },
+      {
+        destination: "Heredia, Heredia, Costa Rica",
+        arrival_date: "2024-06-19",
+        departure_date: "2024-06-24",
+      },
+    ],
+  },
 ];
 
 export const TRAVEL: ITravel = {

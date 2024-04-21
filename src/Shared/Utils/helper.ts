@@ -34,3 +34,34 @@ export const capitalizeFirstLetter = (text: string | null): string | null => {
 export const trimPunctuation = (text: string): string => {
   return text.replace(/^['".]+|['".]+$/g, "").trim();
 };
+
+export const calculateDaysDifference = (
+  dates: string[]
+): {
+  daysDifference: number;
+  minDate: string;
+  maxDate: string;
+} => {
+  if (dates.length < 2) {
+    return { daysDifference: 0, minDate: "", maxDate: "" };
+  }
+
+  const dateObjects = dates.map((date) => new Date(date));
+  let minDate = new Date(
+    Math.min(...dateObjects.map((date) => date.getTime()))
+  );
+  let maxDate = new Date(
+    Math.max(...dateObjects.map((date) => date.getTime()))
+  );
+
+  const millisecondsPerDay = 1000 * 60 * 60 * 24;
+  const daysDifference = Math.round(
+    (maxDate.getTime() - minDate.getTime()) / millisecondsPerDay
+  );
+
+  return {
+    daysDifference: daysDifference,
+    minDate: minDate.toISOString().slice(0, 10),
+    maxDate: maxDate.toISOString().slice(0, 10),
+  };
+};
