@@ -43,6 +43,10 @@ const routes = {
     path: "/destinationForm",
     name: "Destination Form",
   },
+  Travels: {
+    path: "/my-travels",
+    name: "My Travels",
+  },
 };
 
 export default routes;
