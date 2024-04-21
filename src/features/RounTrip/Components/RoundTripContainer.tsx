@@ -3,7 +3,11 @@ import { Button, Form, Space, DatePicker } from "antd";
 import { useEffect, useState } from "react";
 import "./style.css";
 import RoundTripCounter from "./RoundTripCounter";
-import { roundTrip } from "../Services";
+
+import { handleSaveRoundTrip, roundTrip } from "../Slice/roundTripSlice";
+import { useAppDispatch } from "../../../Shared/App/hook";
+import { roundTrip2 } from "../Services";
+import { redirect, useNavigate } from "react-router-dom";
 
 const { RangePicker } = DatePicker;
 
@@ -47,6 +51,8 @@ const RoundTripContainer = () => {
   const [originValue, setOriginValue] = useState<string>("");
   const [arrayDates, setArrayDates] = useState([{ id: 1 }]);
   const [destinations, setDestinations] = useState<Destinations[]>([]);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onReset = () => {
     form.resetFields();
@@ -81,9 +87,14 @@ const RoundTripContainer = () => {
       destination: JSON.stringify(destinationsDates),
     };
 
-    await roundTrip(data);
+    // await dispatch(roundTrip(data));
+    const response: any = await roundTrip2(data);
+    console.log("response", response.data);
 
-    console.log("data", data);
+    if (response.status === 200) {
+      dispatch(handleSaveRoundTrip(response.data));
+      navigate("/roundTrip/3/trip");
+    }
 
     form.resetFields();
   };

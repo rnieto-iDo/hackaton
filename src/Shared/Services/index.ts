@@ -4,7 +4,9 @@ export enum PATH_LIST {
   AGENCIES = "/agencies",
   PROFILES = "/profiles",
   DESTINATIONS = "/destinations",
+  ROUNDTRIP = "/trip-request",
 }
+
 export interface IUserData {
   jwtToken: string;
 }
