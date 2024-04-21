@@ -12,6 +12,7 @@ const TripsList = ({ proposal_id, data, trip_request_id }: TripsListProps) => {
     []
   );
   const [toursIds, setToursIds] = useState<number | Array<number>>([]);
+  const [destinations, setDestinations] = useState([]);
 
   const handleSetHotelId = (hotelId: number | Array<number>) => {
     setHotelId(hotelId);
@@ -36,34 +37,42 @@ const TripsList = ({ proposal_id, data, trip_request_id }: TripsListProps) => {
     }
   };
 
-  //   console.log(proposal_id, "proposal_id");
-  //   console.log(arrival_date, "arrival_date");
-  //   console.log(departure_date, "departure_date");
+  const addDestination = (newDestination) => {
+    setDestinations((prevDestinations) => [
+      ...prevDestinations,
+      newDestination,
+    ]);
+  };
+
+  const handleSelection = () => {
+    const newDestination = {
+      destination: data[currentProposalIndex].city,
+      arrival_date: data[currentProposalIndex].arrival_date,
+      departure_date: data[currentProposalIndex].departure_date,
+      hotel: hotelId,
+      restaurant: restaurantIds,
+      tour: toursIds,
+    };
+
+    setHotelId([]);
+    setRestaurantIds([]);
+    setToursIds([]);
+
+    addDestination(newDestination);
+  };
+
+  console.log(proposal_id, "proposal_id");
+  console.log(trip_request_id, "trip_request_id");
+  // console.log(arrival_date, "arrival_date");
+  // console.log(departure_date, "departure_date");
 
   const handleTripRequest = async () => {
-    const destina = JSON.stringify([
-      {
-        destination: "San Jose, San Jose, Costa Rica",
-        arrival_date: "2024-06-13",
-        departure_date: "2024-06-19",
-        hotel: 1,
-        restaurant: [2, 3, 4],
-        tour: [5, 6, 7],
-      },
-      {
-        destination: "Heredia, Heredia, Costa Rica",
-        arrival_date: "2024-06-13",
-        departure_date: "2024-06-19",
-        hotel: 1,
-        restaurant: [2, 3, 4],
-        tour: [5, 6, 7],
-      },
-    ]);
+    const finalDestinations = JSON.stringify(destinations);
     const data3 = {
-      trip_request_id: 46,
-      proposal_id: 28,
+      trip_request_id: trip_request_id,
+      proposal_id: proposal_id,
       origin: "Managua, Nicaragua",
-      destinations: destina,
+      destinations: finalDestinations,
       adults: 2,
       children: 3,
       pets: 1,
@@ -82,7 +91,11 @@ const TripsList = ({ proposal_id, data, trip_request_id }: TripsListProps) => {
     setCurrentProposalIndex((prevIndex) =>
       Math.min(data.length - 1, prevIndex + 1)
     );
+
+    handleSelection();
   };
+
+  console.log("destinations array", destinations);
 
   return (
     <div>
