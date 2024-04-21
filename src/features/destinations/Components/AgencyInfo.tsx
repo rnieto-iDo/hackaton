@@ -19,7 +19,7 @@ export const AgencyInfo = ({ address, bio }: { address: string, bio: string }) =
                 <p className="text-pretty">
                     {bio}
                 </p>
-                <span className="font-semibold underline">Show more</span>
+                <button className="font-semibold underline">Show more</button>
             </div>
 
         </div>

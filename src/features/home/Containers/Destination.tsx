@@ -49,7 +49,7 @@ export const Destination = () => {
 
             <SectionLayout containerClassName="mt-10 py-12 w-[60%] border-t border-solid border-[#DDD] font-onest text-pretty">
                 <p className="py-3">{description}</p>
-                <span className="font-semibold underline">Show more</span>
+                <button className="font-semibold underline">Show more</button>
             </SectionLayout>
 
             <SectionLayout
