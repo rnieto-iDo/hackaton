@@ -25,9 +25,9 @@ export const AgencyCard = ({
 }) => {
     return (
         <div className="flex w-full gap-3 p-5 shadow-lg font-onest bg-themeOffwhite rounded-3xl">
-            <div className=" w-[60%] flex flex-col items-center justify-center gap-2">
+            <div className=" w-[60%] flex flex-col items-center justify-between gap-2">
                 <img
-                    className="w-[60%] rounded-full object-contain"
+                    className="w-[80%] rounded-full object-contain"
                     src={cover}
                     alt=""
                 />
@@ -46,8 +46,8 @@ export const AgencyCard = ({
                 {cardInfo.map((info, index) => (
                     <SectionLayout
                         key={index}
-                        containerClassName={`flex flex-col w-[80%] ${index < cardInfo.length - 1 ? "border-b" : ""
-                            } border-solid border-[#DDD] py-1`}
+                        containerClassName={`flex flex-col w-[80%] ${index < cardInfo.length - 1 ? "border-b py-1" : "pt-1"
+                            } border-solid border-[#DDD]`}
                         titleClassName="font-onest font-bold"
                         title={info.title}
                     >
