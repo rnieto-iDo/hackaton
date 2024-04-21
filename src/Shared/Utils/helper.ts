@@ -4,7 +4,7 @@ import {
   CarIcon,
   ShowerIcon,
   WorkingAreaIcon,
-} from "../Assets/icons";
+} from "../../assets/icons";
 
 export const iconSelector = (icon: string) => {
   switch (icon) {

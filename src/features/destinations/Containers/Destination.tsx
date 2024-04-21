@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { PageLayout } from "../../../Shared/Containers/pageLayout"
 import { useAppDispatch, useAppSelector } from "../../../Shared/App/hook"
 import MasonryLayout from "../../../Shared/Components/MasonryLayout"
-import { tagList } from "../../../Shared/Assets/mock"
+import { tagList } from "../../../assets/mock"
 
 import {
     fetchSingleDestination,

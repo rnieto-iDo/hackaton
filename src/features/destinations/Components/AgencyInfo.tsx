@@ -1,4 +1,4 @@
-import { LanguageIcon, LocationIcon } from '../../../Shared/Assets/icons'
+import { LanguageIcon, LocationIcon } from '../../../assets/icons'
 
 export const AgencyInfo = ({ address, bio }: { address: string, bio: string }) => {
     return (
