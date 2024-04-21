@@ -11,7 +11,7 @@ import TagSkeleton from "./TagSkeleton"
 import { useAppSelector } from "../../../Shared/App/hook"
 import { useNavigate } from "react-router-dom"
 
-export default function Tags({ type }: ITagTypeProps) {
+export default function Tags({ type, showGalleryFrom }: ITagTypeProps) {
 	const navigate = useNavigate()
 	const [tags, setTags] = useState<ITagProps[]>([])
 	const [selectedTags, setSelectedTags] = useState<ITagProps[]>([])
@@ -42,7 +42,9 @@ export default function Tags({ type }: ITagTypeProps) {
 					createdDestination!.id!
 				)
 				if (response.status === 200) {
-					navigate("/destinations")
+					if (showGalleryFrom) {
+						showGalleryFrom(true)
+					}
 				}
 			} catch (error) {
 				console.error("Error setting tags:", error)

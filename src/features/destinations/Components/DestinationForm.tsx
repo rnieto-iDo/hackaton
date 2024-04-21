@@ -9,10 +9,12 @@ import TextArea from "antd/es/input/TextArea"
 import { countries } from "../../Signup/Utils/countries"
 import { useDispatch } from "react-redux"
 import { setCreatedDestination } from "../Slices/destinationsSlice"
+import DestinationGalleryForm from "./destinationGalleryForm"
 
 export default function DestinationForm() {
 	const [isTagShown, setIsTagShown] = useState(false)
 	const [tagType, setTagType] = useState<ITagTypeProps>({ type: "agency" })
+	const [isGalleryFormShown, setIsGalleryFormShown] = useState(false)
 
 	const [meesageState, setMeesageState] = useState<string>("")
 
@@ -73,7 +75,13 @@ export default function DestinationForm() {
 	return (
 		<>
 			{isTagShown ? (
-				<Tags type={tagType.type} />
+				<div className="">
+					{isGalleryFormShown ? (
+						<DestinationGalleryForm />
+					) : (
+						<Tags type={tagType.type} showGalleryFrom={setIsGalleryFormShown} />
+					)}
+				</div>
 			) : (
 				<div className="w-full h-screen flex flex-col overflow-y-scroll bg-themeOffwhite items-center justify-evenly pt-16">
 					<Form

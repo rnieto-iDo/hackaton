@@ -37,3 +37,28 @@ export const registerDestination = async (props: IdestinationFormProps) => {
 		return error
 	}
 }
+
+export const addGalleryToDestiny = async (
+	props: {
+		images: File[] | File
+	},
+	id: number
+) => {
+	const token = sessionStorage.getItem("accessToken")
+
+	try {
+		const response = await axios.post<IdestinationFormProps>(
+			`${import.meta.env.VITE_API_BASE_URL}/destinations/${id}/addGallery`,
+			props,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		)
+		return response
+	} catch (error) {
+		return error
+	}
+}

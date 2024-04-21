@@ -85,3 +85,7 @@ export interface IdestinationFormProps {
 	status: string
 	age_restriction?: number
 }
+export interface IGalleryItem {
+	id: number
+	image: string
+}
