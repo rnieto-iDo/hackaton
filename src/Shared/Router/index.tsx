@@ -9,7 +9,8 @@ import Signup from "../../features/Signup/Containers/Signup";
 import { Destination } from "../../features/destinations/Containers/Destination";
 import Tags from "../../features/tags/Components/Tags";
 import DestinationForm from "../../features/destinations/Components/DestinationForm";
-import RoundTrip from "../../features/RounTrip/Containers/RoundTrip.jsx";
+import RoundTrip from "../../features/RounTrip/Containers/RoundTrip.tsx";
+import Trips from "../../features/Trips/Containers/Trips.js";
 
 export default function Router() {
   return (
@@ -27,6 +28,7 @@ export default function Router() {
         element={<Destinations />}
       />
       <Route path={routes.DestinationById.path} element={<Destination />} />
+      <Route path={routes.RoundTripById.path} element={<Trips />} />
 
       <Route
         path={routes.DestinationsByAgency.path}

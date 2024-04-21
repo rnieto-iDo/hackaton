@@ -27,6 +27,10 @@ const routes = {
     path: "/roundTrip",
     name: "roundTrip",
   },
+  RoundTripById: {
+    path: "/roundTrip/:id/trip",
+    name: "roundTripById",
+  },
   DestinationById: {
     path: "/destinations/:id",
     name: "DestinationsById",
