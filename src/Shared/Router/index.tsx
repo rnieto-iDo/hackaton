@@ -12,6 +12,7 @@ import DestinationForm from "../../features/destinations/Components/DestinationF
 import RoundTrip from "../../features/RounTrip/Containers/RoundTrip.tsx";
 import Trips from "../../features/Trips/Containers/Trips.js";
 import { Travels } from "../../features/travels/Containers/Travels.tsx";
+import { SingleTravel } from "../../features/travels/Containers/SingleTravel.tsx";
 
 export default function Router() {
     return (
@@ -30,6 +31,7 @@ export default function Router() {
             <Route path={routes.RoundTripById.path} element={<Trips />} />
             <Route path={routes.DestinationForm.path} element={<DestinationForm />} />
             <Route path={routes.Travels.path} element={<Travels />} />
+            <Route path={routes.TravelById.path} element={<SingleTravel />} />
 
             <Route path="/404" element={<>404 page</>} />
 

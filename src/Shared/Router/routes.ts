@@ -47,6 +47,10 @@ const routes = {
     path: "/my-travels",
     name: "My Travels",
   },
+  TravelById: {
+    path: "/my-travels/:id",
+    name: "TravelById",
+  },
 };
 
 export default routes;
