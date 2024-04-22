@@ -21,7 +21,18 @@ export const roundTrip = createAsyncThunk(
 const initialState: any = {
   trip: {},
   status: "idle",
+  origin: "",
+  adults: 0,
+  pets: 0,
+  children: 0,
 };
+
+interface TripInfo {
+  origin: string;
+  adults: number;
+  pets: number;
+  children: number;
+}
 
 export const RoundTripSlice = createSlice({
   name: "roundTrip",
@@ -31,8 +42,14 @@ export const RoundTripSlice = createSlice({
       console.log("roundtrip", action);
       state.trip = action.payload;
     },
+    handleSaveInfo: (state, { payload }: PayloadAction<TripInfo>) => {
+      state.origin = payload.origin;
+      state.adults = payload.adults;
+      state.pets = payload.pets;
+      state.children = payload.children;
+    },
   },
-  extraReducers(builder) {
+  extraReducers() {
     // builder
     //   .addCase(roundTrip.pending, (state) => {
     //     state.status = "loading";
@@ -50,5 +67,5 @@ export const RoundTripSlice = createSlice({
   },
 });
 
-export const { handleSaveRoundTrip } = RoundTripSlice.actions;
+export const { handleSaveRoundTrip, handleSaveInfo } = RoundTripSlice.actions;
 export const RoundTripReducer = RoundTripSlice.reducer;
