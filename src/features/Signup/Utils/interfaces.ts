@@ -3,7 +3,7 @@ export type ProfileProps = {
 	name: string
 	nationality: string
 	date_of_birth: any
-	photo: string
+	photo: string | File
 }
 
 export interface IUserLogin {
