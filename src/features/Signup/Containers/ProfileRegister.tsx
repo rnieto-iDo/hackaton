@@ -50,7 +50,7 @@ export default function ProfileRegister({
 
 		if (response.status === 201) {
 			dispatch(setProfile(response.data))
-			setTagType({ type: "user" })
+			setTagType({ typeProp: "user" })
 			setIsTagShown(true)
 		} else {
 			setMessageState("Something went wrong, please try again later")
