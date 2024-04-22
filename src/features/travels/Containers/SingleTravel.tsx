@@ -75,7 +75,7 @@ export const ItineraryItem = (destination: IDestination) => {
     const formatedName = `${capitalizeFirstLetter(type)} ${name}`;
 
     return (
-        <li className="mb-20 ml-20 ms-4">
+        <li className="mb-20 ms-10">
             <div
                 className="absolute w-3 h-3 rounded-full -start-1.5 border bg-themebg2"
             >
