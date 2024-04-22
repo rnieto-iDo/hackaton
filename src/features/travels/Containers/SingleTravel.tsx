@@ -1,8 +1,7 @@
 import { useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../../Shared/App/hook"
-import { TRAVEL } from "../../../assets/mock"
-import { setSelectedTravel } from "../Slices/travelsSlice"
+import { fetchSingleTrip } from "../Slices/travelsSlice"
 import { ITravelDestination } from "../Utils/travelInterfaces"
 import { SectionLayout } from "../../../Shared/Components/SectionLayout"
 import { IDestination } from "../../destinations/Utils/destinationsInterfaces"
@@ -13,11 +12,10 @@ export const SingleTravel = () => {
     const dispatch = useAppDispatch()
     const { id } = useParams()
     const selectedTravel = useAppSelector((state) => state.travels.selectedTravel)
+    const profileId = useAppSelector((state) => state.profile.profiles.id)
 
     useEffect(() => {
-        console.log(id);
-        // dispatch(fetchSingleTravel(id))
-        dispatch(setSelectedTravel(TRAVEL))
+        dispatch(fetchSingleTrip({ profileId: profileId, tripId: Number(id!) }))
     }, []);
 
     return (
