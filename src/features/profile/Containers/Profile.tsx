@@ -4,14 +4,16 @@ import { Avatar, Button } from "antd"
 import { EditOutlined, TagOutlined, CompassOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
 import { fetchProfileById } from "../Slices/profileSlice"
+import { useFetchUserData } from "../../../Shared/Hooks/useFetchUserData"
 const Profile = () => {
+	useFetchUserData()
 	const dispatch = useAppDispatch()
 	const profile = useAppSelector((state) => state.profile.profiles)
-	const profileID = useAppSelector((state) => state.user.user.id)
+	const profileID = useAppSelector((state) => state.user.user.profileId)
 
 	useEffect(() => {
-		dispatch(fetchProfileById(profileID))
-	}, [])
+		dispatch(fetchProfileById(profileID!))
+	}, [profileID])
 	return (
 		<section>
 			<div className="p-4 m-4 bg-gradient-to-r from-pink-500 to-violet-600 rounded-3xl ">

@@ -14,7 +14,7 @@ export function useFetchUserData() {
 				try {
 					const response = (await getUserByToken(token)) as AxiosResponse
 					if (response.status === 200) {
-						dispatch(setUser(response.data))
+						dispatch(setUser({ ...response.data, token: token }))
 					} else {
 						window.location.href = "/login"
 					}
