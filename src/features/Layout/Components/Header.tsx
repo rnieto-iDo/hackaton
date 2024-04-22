@@ -5,11 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { Avatar, Button, Dropdown } from "antd";
 
 import { MenuOutlined } from "@ant-design/icons";
-import { useFetchUserData } from "../../../Shared/Hooks/useFetchUserData";
 import { useAppSelector } from "../../../Shared/App/hook";
 
 export const Header = () => {
-  const userID = useFetchUserData();
   const userToken = useAppSelector((state) => state.user.user.token);
   const profile = useAppSelector((state) => state.profile.profiles);
 
