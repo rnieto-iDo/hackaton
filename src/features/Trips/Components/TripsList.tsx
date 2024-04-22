@@ -3,6 +3,7 @@ import { Proposal } from "../Utils/utils";
 import TripDestination from "./TripDestination";
 import { tripRequest } from "../Services";
 import { Form } from "antd";
+import { useNavigate } from "react-router-dom";
 
 interface TripsListProps {
   data: Proposal[];
@@ -33,6 +34,7 @@ const TripsList = ({
   const [currentProposalIndex, setCurrentProposalIndex] = useState(0);
   const [buttons, setButtons] = useState<boolean>(false);
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const handleSetHotelId = (hotelId: number | Array<number>) => {
     setHotelId(hotelId);
@@ -136,7 +138,10 @@ const TripsList = ({
       pets: tripPets,
     };
 
-    await tripRequest(data3);
+    const response: any = await tripRequest(data3);
+    if (response.status === 200) {
+      navigate(`/`);
+    }
   };
 
   const goToNextProposal = () => {
