@@ -10,6 +10,7 @@ import { countries } from "../../Signup/Utils/countries"
 import { useDispatch } from "react-redux"
 import { setCreatedDestination } from "../Slices/destinationsSlice"
 import DestinationGalleryForm from "./destinationGalleryForm"
+import { Option } from "antd/es/mentions"
 
 export default function DestinationForm() {
 	const [isTagShown, setIsTagShown] = useState(false)
@@ -255,17 +256,15 @@ export default function DestinationForm() {
 						</Form.Item>
 
 						<Form.Item<IdestinationFormProps>
-							label="Type of Destination"
 							name="type"
-							rules={[
-								{
-									required: true,
-									message: "Please input a type!",
-									type: "string",
-								},
-							]}
+							label="Type of Destination"
+							rules={[{ required: true, message: "Please select a type!" }]}
 						>
-							<Input />
+							<Select placeholder="select your Role">
+								<Option value="hotel">Hotel</Option>
+								<Option value="restaurant">Restaurant</Option>
+								<Option value="tour">Tour</Option>
+							</Select>
 						</Form.Item>
 
 						<Form.Item<IdestinationFormProps>
@@ -300,7 +299,7 @@ export default function DestinationForm() {
 							label="Age Restriction(optional)"
 							name="age_restriction"
 						>
-							<input type="number" className="bg-white w-14 border " />
+							<input type="number" className="bg-white w-14 border " min={0} />
 						</Form.Item>
 
 						<div className="flex justify-center items-center">
