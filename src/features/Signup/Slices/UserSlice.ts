@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { Iuser } from "../../../Shared/Utils/interfaces"
+import { Iagency, Iuser } from "../../../Shared/Utils/interfaces"
 import { ProfileProps } from "../Utils/interfaces"
 
 type IUserSlice = {
 	user: Iuser
 	profile: ProfileProps
+	agency: Iagency
 }
 
 const initialState: IUserSlice = {
@@ -20,7 +21,23 @@ const initialState: IUserSlice = {
 		name: "",
 		nationality: "",
 		date_of_birth: "",
-		photo: "" ,
+		photo: "",
+	},
+
+	agency: {
+		id: 0,
+		user_id: 0,
+		name: "",
+		name_juridical: "",
+		cedula: "",
+		phone_number: "",
+		address: "",
+		email: "",
+		bank_account: "",
+		bio: "",
+		cover: "",
+		logo: "",
+		destinations: [],
 	},
 }
 
@@ -34,9 +51,12 @@ const userSlice = createSlice({
 		setProfile: (state, action: PayloadAction<ProfileProps>) => {
 			state.profile = action.payload
 		},
+		setAgency: (state, action: PayloadAction<Iagency>) => {
+			state.agency = action.payload
+		},
 	},
 })
 
-export const { setUser, setProfile } = userSlice.actions
+export const { setUser, setProfile, setAgency } = userSlice.actions
 
 export const userReducer = userSlice.reducer
