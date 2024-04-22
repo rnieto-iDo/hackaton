@@ -44,3 +44,29 @@ export const setUserTags = async (
 		throw error
 	}
 }
+
+export const setDestinationTags = async (
+	props: any,
+	id: number
+): Promise<AxiosResponse<ITagProps[]>> => {
+	const token = sessionStorage.getItem("accessToken")
+	const tags = {
+		tags: props,
+	}
+
+	try {
+		const response = await axios.post<ITagProps[]>(
+			`${import.meta.env.VITE_API_BASE_URL}/destinations/${id}/tags`,
+			tags,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+		return response
+	} catch (error) {
+		console.error("Error fetching tags:", error)
+		throw error
+	}
+}

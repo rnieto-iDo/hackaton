@@ -30,3 +30,20 @@ export const createAxiosInstance = (
 
   return clientAxios;
 };
+
+export const getUserByToken = async (token: string) => {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_BASE_URL}/getUserByToken`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

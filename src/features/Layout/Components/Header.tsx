@@ -1,5 +1,6 @@
 import Logo from "../../../assets/hackatonLogo.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Avatar, Button, Dropdown } from "antd";
 
@@ -8,10 +9,16 @@ import { MenuOutlined } from "@ant-design/icons";
 export const Header = () => {
   const inLogin = true;
 
+  const navigate = useNavigate();
+
   const logOut = () => {
     window.location.href = "/login";
   };
   //
+
+  const goToTrip = () => {
+    navigate("/roundTrip");
+  };
   const items = [
     {
       key: "1",
@@ -23,16 +30,21 @@ export const Header = () => {
     },
     {
       key: "3",
-      label: (
-        <Button onClick={logOut} danger>
-          Log Out
-        </Button>
-      ),
+      label: <Link to="/agencies">Agencies</Link>,
+    },
+
+    {
+      key: "4",
+      label: <Button onClick={goToTrip}>New Trip</Button>,
+    },
+    {
+      key: "5",
+      label: <Button onClick={logOut}>Log Out</Button>,
     },
   ];
 
   return (
-    <header className="flex flex-row items-center justify-between bg-[#fff] px-4 md:px-20 py-5 shadow-xl w-screen ">
+    <header className="flex flex-row items-center justify-between bg-[#fff px-4 md:px-20 py-5 shadow-xl w-screen  top-0 left-0 ">
       <div>
         <Link to="/">
           <img className="h-10" src={Logo} alt="Tesla Logo" />

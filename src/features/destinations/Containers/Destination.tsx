@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { PageLayout } from "../../../Shared/Containers/pageLayout"
 import { useAppDispatch, useAppSelector } from "../../../Shared/App/hook"
 import MasonryLayout from "../../../Shared/Components/MasonryLayout"
-import { tagList } from "../../../Shared/Assets/mock"
+import { tagList } from "../../../assets/mock"
 
 import {
     fetchSingleDestination,
@@ -70,7 +70,7 @@ export const Destination = () => {
                 <SectionLayout containerClassName="w-full">
                     <SectionLayout containerClassName="py-2 w-full border-t border-solid border-[#DDD] font-onest text-pretty">
                         <p className="pt-7">{description}</p>
-                        <span className="font-semibold underline">Show more</span>
+                        <button className="font-semibold underline">Show more</button>
                     </SectionLayout>
 
                     <SectionLayout

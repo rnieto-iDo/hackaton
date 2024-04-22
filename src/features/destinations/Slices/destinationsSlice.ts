@@ -3,7 +3,7 @@ import { fetchDestinationById, fetchDestinations } from "../Services";
 import {
   IDestination,
   IDestinationSlice,
-  Status,
+  IdestinationFormProps,
 } from "../Utils/destinationsInterfaces";
 
 const handleAsyncThunkError = (error: Error) => {
@@ -27,7 +27,7 @@ export const fetchAllDestinations = createAsyncThunk(
   async () => {
     try {
       const response = await fetchDestinations();
-    
+
       return response.data;
     } catch (error) {
       return handleAsyncThunkError(error as Error);
@@ -52,7 +52,7 @@ const initialState: IDestinationSlice = {
     state: "",
     type: "",
     category: "",
-    status: Status.Open,
+    status: "open",
     age_restriction: 0,
     gallery: [],
     tags: [],
@@ -81,6 +81,12 @@ export const DestinationsSlice = createSlice({
         status: "succeeded",
       };
     },
+    setCreatedDestination: (
+      state,
+      action: PayloadAction<IdestinationFormProps>
+    ) => {
+      state.createdDestination = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -103,17 +109,19 @@ export const DestinationsSlice = createSlice({
           status: "failed",
         };
       })
-      .addCase(fetchAllDestinations.fulfilled, (state,{payload} ) => {
+      .addCase(fetchAllDestinations.fulfilled, (state, { payload }) => {
         return {
           ...state,
           destinations: payload,
           status: "succeeded",
         };
-      }
-      )
+      });
   },
 });
 
-export const { resetDestinationSelection, setSelectedDestination } =
-  DestinationsSlice.actions;
+export const {
+  resetDestinationSelection,
+  setSelectedDestination,
+  setCreatedDestination,
+} = DestinationsSlice.actions;
 export const DestinationsReducer = DestinationsSlice.reducer;

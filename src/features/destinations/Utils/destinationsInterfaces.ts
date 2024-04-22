@@ -4,6 +4,7 @@ export interface IDestinationSlice {
 	destinations: AllDestinations[]
 	selectedDestination: IDestination
 	status: IRequestStatus
+	createdDestination?: IdestinationFormProps
 }
 
 export interface IDestination {
@@ -23,15 +24,14 @@ export interface IDestination {
 	type: string
 	category: string
 	status: Status
+	price?: number | string
 	age_restriction: number
+	current_date?: string
 	gallery: string[]
 	tags: ITag[]
 }
 
-export enum Status {
-	Closed = "closed",
-	Open = "open",
-}
+export type Status = "closed" | "open"
 
 export interface ITag {
 	id: number
@@ -68,6 +68,7 @@ export interface IAgencyProfileProps {
 }
 
 export interface IdestinationFormProps {
+	id?: number
 	name: string
 	description: string
 	location: string
@@ -82,4 +83,13 @@ export interface IdestinationFormProps {
 	category: string
 	status: string
 	age_restriction?: number
+}
+export interface IDestinationPriceProps {
+	startDate: any
+	endDate: any
+	price: number
+}
+export interface IGalleryItem {
+	id: number
+	image: string
 }

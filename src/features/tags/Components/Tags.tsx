@@ -1,33 +1,56 @@
 import { useEffect, useState } from "react"
 import { ITagProps } from "../../../Shared/Utils/interfaces"
 import { ITagTypeProps } from "../Utils/interfaces"
-import { getTags, setUserTags } from "../Services/tagsHelper"
+import {
+	getTags,
+	setDestinationTags,
+	setUserTags,
+} from "../Services/tagsHelper"
 import { Button } from "antd"
 import TagSkeleton from "./TagSkeleton"
 import { useAppSelector } from "../../../Shared/App/hook"
 import { useNavigate } from "react-router-dom"
 
-export default function Tags({ type }: ITagTypeProps) {
+export default function Tags({ type, showGalleryFrom }: ITagTypeProps) {
 	const navigate = useNavigate()
 	const [tags, setTags] = useState<ITagProps[]>([])
 	const [selectedTags, setSelectedTags] = useState<ITagProps[]>([])
 	const [isLoading, setIslLoading] = useState(true)
 
 	const profile = useAppSelector((state) => state.user.profile)
+	const createdDestination = useAppSelector(
+		(state) => state.destinations.createdDestination
+	)
 
 	const handleTagSubmit = async () => {
 		const tagIds = selectedTags.map((tag) => tag.id)
-		try {
-			const response = await setUserTags(tagIds, profile.id)
-			if (response.status === 200) {
-				console.log("Tags set successfully")
-				navigate("/")
+
+		if (type === "user") {
+			try {
+				const response = await setUserTags(tagIds, profile.id)
+				if (response.status === 200) {
+					console.log("Tags set successfully")
+					navigate("/")
+				}
+			} catch (error) {
+				console.error("Error setting tags:", error)
 			}
-		} catch (error) {
-			console.error("Error setting tags:", error)
+		} else {
+			try {
+				const response = await setDestinationTags(
+					tagIds,
+					createdDestination!.id!
+				)
+				if (response.status === 200) {
+					if (showGalleryFrom) {
+						showGalleryFrom(true)
+					}
+				}
+			} catch (error) {
+				console.error("Error setting tags:", error)
+			}
 		}
 	}
-
 	const handleTagSelection = (index: number) => {
 		const tagToToggle = tags[index]
 		const isSelected = selectedTags.some((tag) => tag.id === tagToToggle.id)
@@ -84,7 +107,11 @@ export default function Tags({ type }: ITagTypeProps) {
 								}`}
 								onClick={() => handleTagSelection(index)}
 							>
-								<img src={tag.icon} alt={tag.name} className="w-4 h-4 ml-2" />
+								<img
+									src={`${import.meta.env.VITE_ASSETS_BASE_URL}${tag.icon}`}
+									alt={`${import.meta.env.VITE_ASSETS_BASE_URL}${tag.name}`}
+									className="w-4 h-4 ml-2"
+								/>
 								<span className="text-center text-sm font-normal ">
 									{tag.name}
 								</span>
