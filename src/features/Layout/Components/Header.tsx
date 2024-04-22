@@ -5,16 +5,21 @@ import { useNavigate } from "react-router-dom";
 import { Avatar, Button, Dropdown } from "antd";
 
 import { MenuOutlined } from "@ant-design/icons";
+import { useFetchUserData } from "../../../Shared/Hooks/useFetchUserData";
+import { useAppSelector } from "../../../Shared/App/hook";
 
 export const Header = () => {
-  const inLogin = true;
+  const userID = useFetchUserData();
+  const userToken = useAppSelector((state) => state.user.user.token);
+  const profile = useAppSelector((state) => state.profile.profiles);
 
   const navigate = useNavigate();
 
   const logOut = () => {
+    //remove session storage
+    sessionStorage.removeItem("accessToken");
     window.location.href = "/login";
   };
-  //
 
   const goToTrip = () => {
     navigate("/roundTrip");
@@ -52,24 +57,17 @@ export const Header = () => {
       </div>
 
       <div>
-        {!inLogin ? (
+        {!userToken ? (
           <div>
             <Link to="/login">
-              <button className="bg-[#1e1e1e] text-[#fff] px-5 py-2 rounded-md mr-5">
-                Iniciar Sesión
-              </button>
-            </Link>
-            <Link to="/register">
-              <button className="bg-[#1e1e1e] text-[#fff] px-5 py-2 rounded-md">
-                Registrarse
-              </button>
+              <Button type="primary">Iniciar Sesión</Button>
             </Link>
           </div>
         ) : (
-          <div className="border border-text rounded-full px-1 flex flex-row items-center gap-1 shadow-text/20 shadow-md">
+          <div className="border border-text rounded-full px-1 flex flex-row items-center gap-2 shadow-text/20 shadow-md">
             <Avatar
-              size={40}
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              size={30}
+              src={`${import.meta.env.VITE_ASSETS_BASE_URL}${profile.photo}`}
             />
             <Dropdown menu={{ items }} placement="bottomRight">
               <Button type="primary" shape="circle" icon={<MenuOutlined />} />
