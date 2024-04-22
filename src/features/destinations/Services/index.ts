@@ -1,6 +1,9 @@
 import axios, { AxiosResponse } from "axios"
 import { PATH_LIST, createAxiosInstance } from "../../../Shared/Services"
-import { IdestinationFormProps } from "../Utils/destinationsInterfaces"
+import {
+	IDestinationPriceProps,
+	IdestinationFormProps,
+} from "../Utils/destinationsInterfaces"
 
 export const fetchDestinationById = async (
 	id: string
@@ -47,8 +50,31 @@ export const addGalleryToDestiny = async (
 	const token = sessionStorage.getItem("accessToken")
 
 	try {
-		const response = await axios.post<IdestinationFormProps>(
+		const response = await axios.post(
 			`${import.meta.env.VITE_API_BASE_URL}/destinations/${id}/addGallery`,
+			props,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		)
+		return response
+	} catch (error) {
+		return error
+	}
+}
+
+export const addPriceToDestiny = async (
+	props: IDestinationPriceProps | IDestinationPriceProps[],
+	id: number
+) => {
+	const token = sessionStorage.getItem("accessToken")
+
+	try {
+		const response = await axios.post(
+			`${import.meta.env.VITE_API_BASE_URL}/destinations/${id}/prices`,
 			props,
 			{
 				headers: {

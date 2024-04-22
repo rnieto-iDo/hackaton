@@ -20,7 +20,7 @@ const initialState: IUserSlice = {
 		name: "",
 		nationality: "",
 		date_of_birth: "",
-		photo: new File([], ""),
+		photo: "" ,
 	},
 }
 

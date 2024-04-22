@@ -1,6 +1,7 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { PATH_LIST, createAxiosInstance } from "../../../Shared/Services";
 
-export const roundTrip = async (props: any) => {
+export const roundTrip2 = async (props: any) => {
   const token = sessionStorage.getItem("accessToken");
 
   // Configurar los encabezados de la petición con el token de autorización
@@ -17,4 +18,14 @@ export const roundTrip = async (props: any) => {
   } catch (error) {
     return error;
   }
+};
+
+export const createRoundTrip = async (data: any): Promise<AxiosResponse> => {
+  const axiosInstance = createAxiosInstance(
+    // userDate
+    `${PATH_LIST.ROUNDTRIP}`
+  );
+
+  const response = await axiosInstance.post("/", data);
+  return response;
 };

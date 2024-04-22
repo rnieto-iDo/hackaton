@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
+
 import { ITagProps } from "../../../Shared/Utils/interfaces"
 import { ITagTypeProps } from "../Utils/interfaces"
 import {
@@ -11,7 +13,13 @@ import TagSkeleton from "./TagSkeleton"
 import { useAppSelector } from "../../../Shared/App/hook"
 import { useNavigate } from "react-router-dom"
 
-export default function Tags({ type, showGalleryFrom }: ITagTypeProps) {
+export default function Tags({ typeProp, showGalleryFrom }: ITagTypeProps) {
+	const location = useLocation()
+	const queryParams = new URLSearchParams(location.search)
+
+	const profileId = queryParams.get("id")
+	const type = queryParams.get("type")
+
 	const navigate = useNavigate()
 	const [tags, setTags] = useState<ITagProps[]>([])
 	const [selectedTags, setSelectedTags] = useState<ITagProps[]>([])
@@ -23,11 +31,16 @@ export default function Tags({ type, showGalleryFrom }: ITagTypeProps) {
 	)
 
 	const handleTagSubmit = async () => {
+		console.log("clicked")
+
 		const tagIds = selectedTags.map((tag) => tag.id)
 
-		if (type === "user") {
+		if (type || typeProp === "user") {
 			try {
-				const response = await setUserTags(tagIds, profile.id)
+				const response = await setUserTags(
+					tagIds,
+					profile.id ? profile.id : parseInt(profileId!)
+				)
 				if (response.status === 200) {
 					console.log("Tags set successfully")
 					navigate("/")
@@ -78,7 +91,7 @@ export default function Tags({ type, showGalleryFrom }: ITagTypeProps) {
 	return (
 		<div className="w-full h-screen flex flex-col overflow-y-scroll bg-themeOffwhite  items-center justify-evenly z-10 px-4 ">
 			<div className="">
-				{type === "user" ? (
+				{type || typeProp === "user" ? (
 					<h1 className="text-themeText font-semibold text-2xl my-10 text-center">
 						Craft Your Adventure: What Are You Looking for in a Destination?
 					</h1>
@@ -107,7 +120,11 @@ export default function Tags({ type, showGalleryFrom }: ITagTypeProps) {
 								}`}
 								onClick={() => handleTagSelection(index)}
 							>
-								<img src={tag.icon} alt={tag.name} className="w-4 h-4 ml-2" />
+								<img
+									src={`${import.meta.env.VITE_ASSETS_BASE_URL}${tag.icon}`}
+									alt={`${import.meta.env.VITE_ASSETS_BASE_URL}${tag.name}`}
+									className="w-4 h-4 ml-2"
+								/>
 								<span className="text-center text-sm font-normal ">
 									{tag.name}
 								</span>
