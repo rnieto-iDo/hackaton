@@ -14,7 +14,7 @@ import { Option } from "antd/es/mentions"
 
 export default function DestinationForm() {
 	const [isTagShown, setIsTagShown] = useState(false)
-	const [tagType, setTagType] = useState<ITagTypeProps>({ type: "agency" })
+	const [tagType, setTagType] = useState<ITagTypeProps>({ typeProp: "agency" })
 	const [isGalleryFormShown, setIsGalleryFormShown] = useState(false)
 
 	const [meesageState, setMeesageState] = useState<string>("")
