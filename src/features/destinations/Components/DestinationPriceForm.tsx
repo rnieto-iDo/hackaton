@@ -54,7 +54,7 @@ export default function DestinationPriceForm() {
 	const onFinish = async (fieldsValue: any) => {
 		// Iterate over each field in fieldsValue
 		Object.keys(fieldsValue).forEach(async (field) => {
-			const [name, index] = field.split("-")
+			const [name] = field.split("-")
 
 			if (name === "startDate" || name === "endDate") {
 				fieldsValue[field] = moment(fieldsValue[field]).format("YYYY-MM-DD")
