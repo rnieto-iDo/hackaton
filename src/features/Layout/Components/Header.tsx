@@ -9,6 +9,7 @@ import { useAppSelector } from "../../../Shared/App/hook";
 
 export const Header = () => {
   const userToken = useAppSelector((state) => state.user.user.token);
+  const userType = useAppSelector((state) => state.user.user.role);
   const profile = useAppSelector((state) => state.profile.profiles);
 
   const navigate = useNavigate();
@@ -54,7 +55,13 @@ export const Header = () => {
         </Link>
       </div>
 
-      <div>
+      <div className="flex flex-row items-center gap-2">
+        {userType === "agency" ? (
+          <Link to="/destinationForm">
+            <Button type="primary">Add Destination</Button>
+          </Link>
+        ) : null}
+
         {!userToken ? (
           <div>
             <Link to="/login">

@@ -19,11 +19,11 @@ export function useFetchUserData(): string | null {
                     
                         setUserId(response.data.id)
                     } else {
-                        window.location.href = "/login"
+                       // window.location.href = "/login"
                     }
                 } catch (error) {
                     console.error("Error fetching user:", error)
-                    window.location.href = "/login"
+                  // window.location.href = "/login"
                 }
             }
         }
