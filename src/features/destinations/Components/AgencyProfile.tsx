@@ -43,7 +43,7 @@ export const AgencyProfile = ({ name, cover, address, bio }: IAgency) => {
                     </div>
                 </SectionLayout>
 
-                <button className="py-2 font-semibold rounded-md bg-text text-offwhite">Write to the host</button>
+                <button className="py-2 font-semibold rounded-md bg-themeText text-themeOffwhite">Write to the host</button>
 
                 <SectionLayout
                     containerClassName="py-4 border-t border-solid border-[#DDD]"

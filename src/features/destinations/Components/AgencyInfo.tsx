@@ -1,4 +1,4 @@
-import { LanguageIcon, LocationIcon } from '../../../Shared/Assets/icons'
+import { LanguageIcon, LocationIcon } from '../../../assets/icons'
 
 export const AgencyInfo = ({ address, bio }: { address: string, bio: string }) => {
     return (
@@ -19,7 +19,7 @@ export const AgencyInfo = ({ address, bio }: { address: string, bio: string }) =
                 <p className="text-pretty">
                     {bio}
                 </p>
-                <span className="font-semibold underline">Show more</span>
+                <button className="font-semibold underline">Show more</button>
             </div>
 
         </div>

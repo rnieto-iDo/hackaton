@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FavoriteIcon, StarIcon } from "../../../Shared/Assets/icons"
+import { FavoriteIcon, StarIcon } from "../../../assets/icons"
 import useDistanceCalculator from "../../../Shared/Hooks/useDistanceCalculator";
 import { ICoordinate } from "../../../Shared/Utils/interfaces";
 import { IDestinationProps } from "../Utils/destinationsInterfaces"

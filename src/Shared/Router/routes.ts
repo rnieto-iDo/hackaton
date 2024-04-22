@@ -35,6 +35,7 @@ const routes = {
 		path: "/destinations/:id",
 		name: "DestinationsById",
 	},
+
 	Tags: {
 		path: "/tags",
 		name: "Tags",
@@ -46,6 +47,15 @@ const routes = {
 	PriceForm: {
 		path: "/price",
 		name: "Price Form",
+	},
+
+	Travels: {
+		path: "/my-travels",
+		name: "My Travels",
+	},
+	TravelById: {
+		path: "/my-travels/:id",
+		name: "TravelById",
 	},
 }
 
