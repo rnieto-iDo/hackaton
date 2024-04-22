@@ -5,7 +5,7 @@ import { userReducer } from "../../features/Signup/Slices/UserSlice";
 import { DestinationsReducer } from "../../features/destinations/Slices/destinationsSlice";
 import { TravelsReducer } from "../../features/travels/Slices/travelsSlice";
 import { profileReducer } from "../../features/profile/Slices/profileSlice";
-
+import { RoundTripReducer } from "../../features/RounTrip/Slice/roundTripSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +15,7 @@ export const store = configureStore({
     destinations: DestinationsReducer,
     travels: TravelsReducer,
     profile: profileReducer,
+    roundTrip: RoundTripReducer,
   },
 });
 

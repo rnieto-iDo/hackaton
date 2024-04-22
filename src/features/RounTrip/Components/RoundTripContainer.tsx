@@ -1,9 +1,13 @@
 import RoundTripHeader from "./RoundTripHeader";
-import { Button, Form, Space, DatePicker } from "antd";
+import { Button, Form, DatePicker } from "antd";
 import { useEffect, useState } from "react";
 import "./style.css";
 import RoundTripCounter from "./RoundTripCounter";
-import { roundTrip } from "../Services";
+
+import { handleSaveInfo, handleSaveRoundTrip } from "../Slice/roundTripSlice";
+import { useAppDispatch } from "../../../Shared/App/hook";
+import { roundTrip2 } from "../Services";
+import { useNavigate } from "react-router-dom";
 
 const { RangePicker } = DatePicker;
 
@@ -41,16 +45,15 @@ declare global {
 
 const RoundTripContainer = () => {
   const [form] = Form.useForm();
-  const [adultCounter, setAdultCounter] = useState<number>(0);
+  const [adultCounter, setAdultCounter] = useState<number>(1);
   const [childCounter, setChildCounter] = useState<number>(0);
   const [petCounter, setPetCounter] = useState<number>(0);
   const [originValue, setOriginValue] = useState<string>("");
   const [arrayDates, setArrayDates] = useState([{ id: 1 }]);
   const [destinations, setDestinations] = useState<Destinations[]>([]);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const onReset = () => {
-    form.resetFields();
-  };
   const onFinish = async () => {
     const dates = form.getFieldsValue();
     console.log(dates);
@@ -81,9 +84,23 @@ const RoundTripContainer = () => {
       destination: JSON.stringify(destinationsDates),
     };
 
-    await roundTrip(data);
+    dispatch(
+      handleSaveInfo({
+        adults: adultCounter,
+        children: childCounter,
+        origin: originValue,
+        pets: petCounter,
+      })
+    );
 
-    console.log("data", data);
+    // await dispatch(roundTrip(data));
+    const response: any = await roundTrip2(data);
+    console.log("response", response.data);
+
+    if (response.status === 200) {
+      dispatch(handleSaveRoundTrip(response.data));
+      navigate(`/roundTrip/${response.data.trip_request_id}/trip`);
+    }
 
     form.resetFields();
   };
@@ -91,6 +108,12 @@ const RoundTripContainer = () => {
   const handleAddDestination = () => {
     const newId = arrayDates.length + 1;
     setArrayDates([...arrayDates, { id: newId }]);
+  };
+
+  const handleRemoveDestination = (index: number) => {
+    const newArray = [...arrayDates]; // Create a copy of the array
+    newArray.splice(index, 1); // Remove 1 element at the specified index
+    setArrayDates(newArray); // Update the state with the new array
   };
 
   useEffect(() => {
@@ -175,29 +198,54 @@ const RoundTripContainer = () => {
             placeholder="Search Places"
           />
         </Form.Item>
-        {arrayDates.map((item) => {
-          return (
-            <div key={item.id}>
-              <Form.Item
-                label={`Destino${item.id}`}
-                rules={[{ required: true }]}>
-                <input
-                  className="search-google-maps"
-                  type="text"
-                  name={`destino${item.id}`}
-                  autoComplete="on"
-                  placeholder="Search Places"
-                />
-              </Form.Item>
-              <Form.Item name={`fecha${item.id}`} label="Fecha">
-                <RangePicker />
-              </Form.Item>
-            </div>
-          );
-        })}
+        <div className="flex flex-col gap-y-[40px]">
+          {arrayDates.map((item, index: number) => {
+            return (
+              <div key={item.id} className="">
+                <Form.Item
+                  className="input-delete"
+                  label={`Destino ${item.id}`}
+                  rules={[{ required: true }]}>
+                  <input
+                    className="search-google-maps"
+                    type="text"
+                    name={`destino${item.id}`}
+                    autoComplete="on"
+                    placeholder="Search Places"
+                  />
 
-        <Form.Item label="Info">
-          <div className="flex flex-col gap-[16px]">
+                  {index >= 1 && (
+                    <button
+                      className=""
+                      onClick={() => handleRemoveDestination(index)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        className="icon icon-tabler icons-tabler-outline icon-tabler-x">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M18 6l-12 12" />
+                        <path d="M6 6l12 12" />
+                      </svg>
+                    </button>
+                  )}
+                </Form.Item>
+                <Form.Item name={`fecha${item.id}`} label="Fecha">
+                  <RangePicker />
+                </Form.Item>
+              </div>
+            );
+          })}
+        </div>
+
+        <Form.Item label="Pasajeros">
+          <div className="flex flex-col p-[16px] gap-[16px] bg-themeOffwhite rounded-[6px]">
             <RoundTripCounter
               counter={adultCounter}
               title="Adultos"
@@ -219,17 +267,55 @@ const RoundTripContainer = () => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Space>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-            <Button htmlType="button" onClick={onReset}>
-              Reset
-            </Button>
-          </Space>
+          <Button
+            type="default"
+            className="mt-[10px] flex gap-x-[4px] items-center bg-themePrimary text-themeOffwhite rounded-[4px] px-[10px] py-[4px]"
+            onClick={() => handleAddDestination()}>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                className="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 5l0 14" />
+                <path d="M5 12l14 0" />
+              </svg>
+            </span>
+            Add destino
+          </Button>
+        </Form.Item>
+
+        <Form.Item className="test " {...tailLayout}>
+          <Button
+            className="flex gap-x-[4px] items-center"
+            type="primary"
+            htmlType="submit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="icon icon-tabler icons-tabler-outline icon-tabler-plane-arrival">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M15.157 11.81l4.83 1.295a2 2 0 1 1 -1.036 3.863l-14.489 -3.882l-1.345 -6.572l2.898 .776l1.414 2.45l2.898 .776l-.12 -7.279l2.898 .777l2.052 7.797z" />
+              <path d="M3 21h18" />
+            </svg>
+            Buscar Propuestas
+          </Button>
         </Form.Item>
       </Form>
-      <button onClick={() => handleAddDestination()}>Add destino</button>
     </div>
   );
 };
