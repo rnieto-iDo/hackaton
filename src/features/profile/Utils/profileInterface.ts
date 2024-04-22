@@ -13,7 +13,7 @@ export interface ProfileSingle {
   name:          string;
   nationality:   string;
   date_of_birth: string;
-  photo:         string;
+  photo:         string | File;
   tags:          Tag[];
 }
 
