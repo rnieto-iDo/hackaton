@@ -107,7 +107,11 @@ export default function Tags({ type, showGalleryFrom }: ITagTypeProps) {
 								}`}
 								onClick={() => handleTagSelection(index)}
 							>
-								<img src={tag.icon} alt={tag.name} className="w-4 h-4 ml-2" />
+								<img
+									src={`${import.meta.env.VITE_ASSETS_BASE_URL}${tag.icon}`}
+									alt={`${import.meta.env.VITE_ASSETS_BASE_URL}${tag.name}`}
+									className="w-4 h-4 ml-2"
+								/>
 								<span className="text-center text-sm font-normal ">
 									{tag.name}
 								</span>

@@ -3,8 +3,10 @@ import { Carousel, Form, Button, Upload } from "antd"
 import { InboxOutlined } from "@ant-design/icons"
 import { addGalleryToDestiny } from "../Services"
 import { useAppSelector } from "../../../Shared/App/hook"
+import { useNavigate } from "react-router-dom"
 
 const DestinationGalleryForm = () => {
+	const navigate = useNavigate()
 	const createdDestination = useAppSelector(
 		(state) => state.destinations.createdDestination
 	)
@@ -28,7 +30,15 @@ const DestinationGalleryForm = () => {
 			images: imgArr,
 		}
 
-		addGalleryToDestiny(uploadprops, createdDestination!.id!)
+		const response = addGalleryToDestiny(
+			uploadprops,
+			createdDestination!.id!
+		) as any
+		if (response.status === 200) {
+			navigate("/price")
+		} else {
+			console.log(response)
+		}
 	}
 
 	return (
@@ -96,7 +106,7 @@ const DestinationGalleryForm = () => {
 				</Form.Item>
 				<Form.Item className="mt-16 flex w-full justify-center">
 					<Button type="primary" htmlType="submit" shape="round" size="large">
-						Submit
+						Add Photos
 					</Button>
 				</Form.Item>
 			</Form>
