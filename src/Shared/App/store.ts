@@ -4,6 +4,8 @@ import { AgenciesReducer } from "../../features/agencies/Slices/agenciesSlice";
 import { userReducer } from "../../features/Signup/Slices/UserSlice";
 import { DestinationsReducer } from "../../features/destinations/Slices/destinationsSlice";
 import { TravelsReducer } from "../../features/travels/Slices/travelsSlice";
+import { profileReducer } from "../../features/profile/Slices/profileSlice";
+
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +14,7 @@ export const store = configureStore({
     user: userReducer,
     destinations: DestinationsReducer,
     travels: TravelsReducer,
+    profile: profileReducer,
   },
 });
 

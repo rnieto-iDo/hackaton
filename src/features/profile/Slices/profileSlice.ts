@@ -1,17 +1,18 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { fetchProfiles } from "../Services";
-import { ProfileSlice, Profiles } from "../Utils/profileInterface";
+import { ProfileSlice, ProfileSingle } from "../Utils/profileInterface";
 
 const handleAsyncThunkError = (error: Error) => {
   throw error;
 };
 
-export const fetchAllProfile = createAsyncThunk(
-  "profiles/getAll",
-  async (id: string) => {
+export const fetchProfileById = createAsyncThunk(
+  "profiles/getById",
+  async (id: number) => {
     try {
       const response = await fetchProfiles(id);
+      console.log("resp",response.data);
       return response.data;
     } catch (error) {
       return handleAsyncThunkError(error as Error);
@@ -20,7 +21,7 @@ export const fetchAllProfile = createAsyncThunk(
 );
 
 const initialState: ProfileSlice = {
-  profiles: [],
+  profiles: {} as ProfileSingle,
   status: "idle",
 };
 
@@ -30,21 +31,24 @@ export const ProfileSlices = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchAllProfile.pending, (state) => {
+      .addCase(fetchProfileById.pending, (state) => {
         state.status = "loading";
       })
       .addCase(
-        fetchAllProfile.fulfilled,
-        (state, { payload }: PayloadAction<Array<Profiles>>) => {
+        fetchProfileById.fulfilled,
+        (state, { payload }: PayloadAction<ProfileSingle>) => {
           state.status = "succeeded";
           state.profiles = payload;
         }
       )
-      .addCase(fetchAllProfile.rejected, (state) => {
+      .addCase(fetchProfileById.rejected, (state) => {
         state.status = "failed";
-      });
+      })
+     
+      
   },
 });
 
-export const {} = ProfileSlices.actions;
-export const ProfileReducer = ProfileSlices.reducer;
+export const { } = ProfileSlices.actions
+
+export const profileReducer = ProfileSlices.reducer

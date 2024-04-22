@@ -3,19 +3,21 @@
 import { IRequestStatus } from "../../../Shared/Utils/interfaces";
 
 export interface ProfileSlice {
-  profiles: Profiles[];
+  profiles: ProfileSingle;
   status: IRequestStatus;
 }
 
-export interface Profiles {
-  id: number;
-  name: string;
-  nationality: string;
+export interface ProfileSingle {
+  id:            number;
+  user_id:       number;
+  name:          string;
+  nationality:   string;
   date_of_birth: string;
-  photo: string;
+  photo:         string;
+  tags:          Tag[];
 }
 
-export interface ProfileWrapper {
-  photo: string;
-  title: string;
+export interface Tag {
+  id:   number;
+  name: string;
 }

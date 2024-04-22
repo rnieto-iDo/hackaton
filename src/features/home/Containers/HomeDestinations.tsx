@@ -21,7 +21,6 @@ export const HomeDestinations = () => {
 
   useEffect(() => {
     dispatch(fetchAllDestinations());
-    console.log("fetching destinations", HomeDestinations.destinations);
   }, []);
 
   return (
