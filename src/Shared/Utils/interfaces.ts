@@ -1,3 +1,5 @@
+import { IdestinationFormProps } from "../../features/destinations/Utils/destinationsInterfaces"
+
 export type IRequestStatus = "idle" | "loading" | "succeeded" | "failed"
 
 export interface IPageLayoutProps {
@@ -41,4 +43,21 @@ export interface Iuser {
 	email: string
 	role: string
 	token: string
+	profileId?: number
+}
+
+export interface Iagency {
+	id: number
+	user_id: number
+	name: string
+	name_juridical: string
+	cedula: string
+	phone_number: string
+	address: string
+	email: string
+	bank_account: string
+	bio: string
+	cover: string
+	logo: string
+	destinations: IdestinationFormProps[]
 }

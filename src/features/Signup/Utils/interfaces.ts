@@ -1,8 +1,9 @@
 export type ProfileProps = {
+	id: number
 	name: string
 	nationality: string
-	date_of_birth: string
-	photo: File
+	date_of_birth: any
+	photo: string | File
 }
 
 export interface IUserLogin {
@@ -22,9 +23,9 @@ export interface IRegisterUser {
 export interface IRegisterAgency {
 	name: string
 	name_juridical: string
-	cover: File
+	cover: string
 	bio: string
-	logo: File
+	logo: string
 	cedula: string
 	phone_number: string
 	address: string

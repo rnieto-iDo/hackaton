@@ -23,13 +23,39 @@ const routes = {
 		path: "agencies/:id/destinations",
 		name: "DestinationsByAgency",
 	},
+	RoundTrip: {
+		path: "/roundTrip",
+		name: "roundTrip",
+	},
+	RoundTripById: {
+		path: "/roundTrip/:id/trip",
+		name: "roundTripById",
+	},
 	DestinationById: {
 		path: "/destinations/:id",
 		name: "DestinationsById",
 	},
+
 	Tags: {
 		path: "/tags",
 		name: "Tags",
+	},
+	DestinationForm: {
+		path: "/destinationForm",
+		name: "Destination Form",
+	},
+	PriceForm: {
+		path: "/price",
+		name: "Price Form",
+	},
+
+	Travels: {
+		path: "/my-travels",
+		name: "My Travels",
+	},
+	TravelById: {
+		path: "/my-travels/:id",
+		name: "TravelById",
 	},
 }
 

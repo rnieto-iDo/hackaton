@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import { ITagProps } from "../../../Shared/Utils/interfaces"
 
 export const getTags = async () => {
@@ -19,21 +19,52 @@ export const getTags = async () => {
 		throw error
 	}
 }
-
-export const setUserTags = async (props: ITagProps[]) => {
+export const setUserTags = async (
+	props: any,
+	id: number
+): Promise<AxiosResponse<ITagProps[]>> => {
 	const token = sessionStorage.getItem("accessToken")
+	const tags = {
+		tags: props,
+	}
+
 	try {
 		const response = await axios.post<ITagProps[]>(
-			`${import.meta.env.VITE_API_BASE_URL}/profiles/{id}/tags`,
-			props,
+			`${import.meta.env.VITE_API_BASE_URL}/profiles/${id}/tags`,
+			tags,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
 			}
 		)
-		console.log(response.data)
-		return response.data
+		return response
+	} catch (error) {
+		console.error("Error fetching tags:", error)
+		throw error
+	}
+}
+
+export const setDestinationTags = async (
+	props: any,
+	id: number
+): Promise<AxiosResponse<ITagProps[]>> => {
+	const token = sessionStorage.getItem("accessToken")
+	const tags = {
+		tags: props,
+	}
+
+	try {
+		const response = await axios.post<ITagProps[]>(
+			`${import.meta.env.VITE_API_BASE_URL}/destinations/${id}/tags`,
+			tags,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		)
+		return response
 	} catch (error) {
 		console.error("Error fetching tags:", error)
 		throw error

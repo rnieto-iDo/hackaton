@@ -74,8 +74,7 @@ export default function AgencyRegister() {
 	}
 
 	return (
-		<div className="flex flex-col gap-24 overflow-y-scroll bg-themebg">
-			<span>logo</span>
+		<div className="flex flex-col gap-24 overflow-y-scroll bg-themeOffwhite pt-20">
 			<Form
 				name="signUpForm"
 				labelCol={{ span: 8 }}
@@ -95,7 +94,7 @@ export default function AgencyRegister() {
 				<h1 className="text-text font-semibold text-2xl my-10">
 					Create Your Agency
 				</h1>
-				<p className="text-primary font-semibold">{meesageState}</p>
+				<p className="text-themePrimary font-semibold">{meesageState}</p>
 
 				<Form.Item<FieldType>
 					label="Agency Name"
@@ -236,13 +235,16 @@ export default function AgencyRegister() {
 					<Input />
 				</Form.Item>
 
-				<div className="flex justify-center items-center">
-					<Form.Item>
-						<Button type="primary" htmlType="submit">
-							Register
-						</Button>
-					</Form.Item>
-				</div>
+				<Form.Item>
+					<Button
+						type="primary"
+						className="w-full mt-4"
+						htmlType="submit"
+						shape="round"
+					>
+						Register
+					</Button>
+				</Form.Item>
 			</Form>
 		</div>
 	)

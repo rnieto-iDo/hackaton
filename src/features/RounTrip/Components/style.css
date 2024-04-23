@@ -1,0 +1,23 @@
+.search-google-maps {
+  @apply border-[1px] border-solid border-[#d9d9d9] py-[4px] px-[11px] rounded-[4px] w-full;
+}
+.ant-form-item-label {
+  label {
+    font-weight: 600 !important;
+    color: ;
+  }
+}
+
+.test {
+  .ant-form-item-control-input-content {
+    display: flex !important;
+    justify-content: end !important;
+  }
+}
+
+.input-delete {
+  .ant-form-item-control-input-content {
+    display: flex !important;
+    column-gap: 10px !important;
+  }
+}

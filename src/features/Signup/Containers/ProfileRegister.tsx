@@ -4,6 +4,11 @@ import { Button, DatePicker, Form, FormProps, Input, Select } from "antd"
 import { registerProfile } from "../Services/login"
 import { countries } from "../Utils/countries"
 import { ITagTypeProps } from "../../tags/Utils/interfaces"
+import { AxiosResponse } from "axios"
+import { useDispatch } from "react-redux"
+import { setProfile } from "../Slices/UserSlice"
+
+const dateFormat = "YYYY/MM/DD"
 
 type ProfileRegisterProps = {
 	setIsTagShown: (value: boolean) => void
@@ -19,9 +24,8 @@ export default function ProfileRegister({
 	setIsTagShown,
 	setTagType,
 }: ProfileRegisterProps) {
-	// const navigate = useNavigate()
+	const dispatch = useDispatch()
 	const [profilePictureState, setProfilePicture] = useState<File>()
-	const [dob, setDob] = useState<string>("")
 	const [meesageState, setMessageState] = useState<string>("")
 
 	const handleProfileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,13 +39,19 @@ export default function ProfileRegister({
 	const onFinish: FormProps<ProfileProps>["onFinish"] = async (
 		values: ProfileProps
 	) => {
-		values = { ...values, photo: profilePictureState!, date_of_birth: dob }
+		const formValues = {
+			...values,
+			photo: profilePictureState!,
 
-		const response = (await registerProfile(values)) as any
+			date_of_birth: values.date_of_birth.format("YYYY-MM-DD"),
+		}
+
+		const response = (await registerProfile(formValues)) as AxiosResponse
 
 		if (response.status === 201) {
+			dispatch(setProfile(response.data))
+			setTagType({ typeProp: "user" })
 			setIsTagShown(true)
-			setTagType({ type: "user" })
 		} else {
 			setMessageState("Something went wrong, please try again later")
 		}
@@ -53,13 +63,8 @@ export default function ProfileRegister({
 		console.log("Failed:", errorInfo)
 	}
 
-	const handleDateChange = (dateString: string) => {
-		setDob(dateString)
-	}
-
 	return (
 		<div className="w-full h-screen flex flex-col overflow-y-scroll bg-themebg items-center justify-evenly z-10">
-			<span>logo</span>
 			<Form
 				name="signUpForm"
 				labelCol={{ span: 8 }}
@@ -75,7 +80,7 @@ export default function ProfileRegister({
 				autoComplete="on"
 				encType="multipart/form-data"
 			>
-				<p className="text-primary font-semibold">{meesageState}</p>
+				<p className="text-themePrimary font-semibold">{meesageState}</p>
 
 				<h1 className="text-text font-semibold text-2xl my-10">
 					Create Your Profile
@@ -133,17 +138,11 @@ export default function ProfileRegister({
 				</Form.Item>
 
 				<Form.Item<ProfileProps>
-					name={"date_of_birth"}
 					label="Date of Birth"
-					rules={[
-						{
-							required: true,
-							message: "Please input your date of birth!",
-							type: "date",
-						},
-					]}
+					name="date_of_birth"
+					rules={[{ required: true, message: "Please input!" }]}
 				>
-					<DatePicker format={"YYYY-MM-DD"} onChange={handleDateChange} />
+					<DatePicker format={dateFormat} />
 				</Form.Item>
 
 				<div className="flex justify-center items-center">
