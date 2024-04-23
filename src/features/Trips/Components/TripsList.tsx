@@ -140,7 +140,7 @@ const TripsList = ({
 
     const response: any = await tripRequest(data3);
     if (response.status === 200) {
-      navigate(`/`);
+      navigate(`/my-travels`);
     }
   };
 
