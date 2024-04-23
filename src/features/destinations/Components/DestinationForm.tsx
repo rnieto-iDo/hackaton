@@ -14,7 +14,7 @@ import { Option } from "antd/es/mentions"
 
 export default function DestinationForm() {
 	const [isTagShown, setIsTagShown] = useState(false)
-	const [tagType, setTagType] = useState<ITagTypeProps>({ type: "agency" })
+	const [tagType, setTagType] = useState<ITagTypeProps>({ typeProp: "agency" })
 	const [isGalleryFormShown, setIsGalleryFormShown] = useState(false)
 
 	const [meesageState, setMeesageState] = useState<string>("")
@@ -60,7 +60,7 @@ export default function DestinationForm() {
 
 		if (response.status === 201) {
 			setIsTagShown(!isTagShown)
-			setTagType({ type: "agency" })
+			setTagType({ typeProp: "agency" })
 			dispatch(setCreatedDestination(response.data))
 		} else {
 			setMeesageState("Something went wrong, please try again later")
@@ -80,7 +80,10 @@ export default function DestinationForm() {
 					{isGalleryFormShown ? (
 						<DestinationGalleryForm />
 					) : (
-						<Tags type={tagType.type} showGalleryFrom={setIsGalleryFormShown} />
+						<Tags
+							typeProp={tagType.typeProp}
+							showGalleryFrom={setIsGalleryFormShown}
+						/>
 					)}
 				</div>
 			) : (

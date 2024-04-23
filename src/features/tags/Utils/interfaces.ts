@@ -1,4 +1,4 @@
 export interface ITagTypeProps {
-	type?: "user" | "agency"
+	typeProp?: "user" | "agency"
 	showGalleryFrom?: (value: boolean) => void
 }

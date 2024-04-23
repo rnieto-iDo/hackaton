@@ -11,7 +11,7 @@ export default function Signup() {
 	const [isAgencyShown, setIsAgencyShown] = useState(false)
 	const [isUserShown, setIsUserShown] = useState(false)
 	const [isTagShown, setIsTagShown] = useState(false)
-	const [tagType, setTagType] = useState<ITagTypeProps>({ type: "user" })
+	const [tagType, setTagType] = useState<ITagTypeProps>({ typeProp: "user" })
 
 	return (
 		<>
@@ -22,9 +22,9 @@ export default function Signup() {
 					setTagType={setTagType}
 				/>
 			)}
-			{isTagShown && <Tags type={tagType.type} />}
+			{isTagShown && <Tags typeProp={tagType.typeProp} />}
 			{!isAgencyShown && !isUserShown && (
-				<div className="w-full h-screen flex flex-col justify-center items-center bg-themeOffwhite overflow-hidden">
+				<div className="w-full flex flex-col justify-center items-center bg-themeOffwhite overflow-hidden h-[calc(100vh-80px)]">
 					<div className="w-3/4 bg-themebg py-8 px-4">
 						<div className="flex justify-center items-center gap-4 m-4">
 							<button
